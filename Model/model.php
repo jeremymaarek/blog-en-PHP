@@ -19,7 +19,7 @@ class postManager extends Manager
     {
         $bdd = $this->dbConnect();
 
-        $all_posts = $bdd->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date FROM posts ORDER BY id DESC LIMIT 0, 5");
+        $all_posts = $bdd->query("SELECT id, title, content, chapo, author, DATE_FORMAT(creation_date, '%d/%m/%Y') AS fr_date FROM posts ORDER BY id DESC");
 
         return $all_posts;
     }
@@ -27,7 +27,7 @@ class postManager extends Manager
     public function posts($postId)
     {
         $bdd = $this->dbConnect();
-        $posts = $bdd->prepare("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date FROM posts WHERE id = ?");
+        $posts = $bdd->prepare("SELECT id, title, content, chapo, author, DATE_FORMAT(creation_date, '%d/%m/%Y') AS fr_date FROM posts WHERE id = ?");
         $posts->execute(array($postId));
         return $posts;
 

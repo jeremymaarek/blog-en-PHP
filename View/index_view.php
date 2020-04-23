@@ -16,9 +16,9 @@ session_start();
     <div class="row">
         <div class="news">
             <h5><?php echo htmlspecialchars($donnees['title']) ?> <br></h5>
-            <p><?php echo htmlspecialchars($donnees['content']) ?><br><br>
-            Rédigé par : XXXXX, derinière mise à jour le <?php echo htmlspecialchars($donnees['fr_date']) ?><br><br>
-            <a href="index.php?action=post&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>" class="btn-block btn-lg btn-outline">Commentaires sur ce post</a>
+            <p><?php echo htmlspecialchars($donnees['chapo']) ?><br><br>
+            Mise à jour le <?php echo htmlspecialchars($donnees['fr_date']) ?><br><br>
+            <a href="index.php?action=post&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>" class="btn-block btn-lg btn-outline">Lire la suite</a>
             <?php 
                 if (!empty($_SESSION['prenom'])) 
                 {

@@ -95,28 +95,39 @@
         <div class="footer-above">
             <div class="container">
                 <div class="row">
-                    <div class="footer-col col-md-6">
+                    <div class="footer-col col-md-4">
                         <h3>Adresse :</h3>
                         <p>6 rue d'armaillé
                             <br>75017 Paris</p>
                     </div>
-                    <div class="footer-col col-md-6">
+                    <div class="footer-col col-md-4">
+                        <h3>Plan du site :</h3>
+                        <a href="index.PHP">Page d'accueil</a><br>
+                        <a href="#">Articles</a><br>
+                        <?php
+                            if ($_SESSION['pseudo'] == "admin") 
+                            {
+                        ?>
+                        <a href="#">Admin : utilisateurs à valider </a><br>
+                        <a href="#">Admin : commentaires à valider</a><br>
+                        <?php
+                            }
+                        ?>
+                    </div>
+                    <div class="footer-col col-md-4">
                         <h3>Nous suivre </h3>
                         <ul class="list-inline">
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                                <a href="https://www.facebook.com/jmaarek" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                                <a href="https://www.instagram.com/jeremymaarek/?hl=fr" class="btn-social btn-outline"><i class="fa fa-fw fa-instagram"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                                <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-maarek-1a2a32158/?originalSubdomain=fr" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                                <a href="https://github.com/jeremymaarek" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
                             </li>
                         </ul>
                     </div>

@@ -15,9 +15,9 @@ session_start();
             ?>
                 
                 <div class="news">
-                    <h1><?php echo htmlspecialchars($donnees['title']) ?> <br><br><br></h1>
+                    <h1><?php echo htmlspecialchars($donnees['title']) ?></h1> écrit par <?php echo htmlspecialchars($donnees['author']) ?>, mise à jour le <?php echo htmlspecialchars($donnees['fr_date']) ?> <br><br><br>
+                    <p>Introduction :<br><?php echo htmlspecialchars($donnees['chapo']) ?><br>
                     <p><?php echo htmlspecialchars($donnees['content']) ?><br>
-                    Mis à jour le <?php echo htmlspecialchars($donnees['fr_date']) ?></p>
                 </div><BR></BR>
 
                 <h4>Commentaires sur cet article</h4>
