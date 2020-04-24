@@ -111,7 +111,7 @@ class user extends Manager
 
         $bdd = $this->dbConnect();
 
-        $reponse = $bdd->query("SELECT * FROM users WHERE pseudo = '$pseudo' AND pass = '$pass'");
+        $reponse = $bdd->query("SELECT * FROM users WHERE pseudo = '$pseudo' AND pass = '$pass' AND is_activated = '1'");
 
         $count = $reponse->rowCount();
 
