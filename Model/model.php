@@ -36,18 +36,21 @@ class postManager extends Manager
     public function add_post ()
     {
         $bdd = $this->dbConnect();
-        $add_post = $bdd->prepare('INSERT INTO posts(title, content, creation_date) VALUES(:title, :content, NOW())');
+        $add_post = $bdd->prepare('INSERT INTO posts(title, content, chapo, author, creation_date) VALUES(:title, :content, :chapo, :author, NOW())');
         return $add_post;
     }
 
-    public function modPost ($id, $title, $content)
+    public function modPost ($id, $title, $content, $author, $chapo)
     {
     $bdd = $this->dbConnect();
-    $req = $bdd->prepare("UPDATE posts SET title = :nvtitle, content = :nv_content, creation_date = NOW() WHERE id = $id");
+    $req = $bdd->prepare("UPDATE posts SET title = :nvtitle, content = :nv_content, creation_date = NOW(), author = :nvauthor, chapo = :nvchapo WHERE id = $id");
 
     $req->execute(array(
     'nvtitle' => $title,
-    'nv_content' => $content
+    'nv_content' => $content,
+    'nvauthor' => $author,
+    'nvchapo' => $chapo
+
     ));
     }
 
@@ -108,7 +111,7 @@ class user extends Manager
 
         $bdd = $this->dbConnect();
 
-        $reponse = $bdd->query("SELECT * FROM visiteurs WHERE pseudo = '$pseudo' AND pass = '$pass'");
+        $reponse = $bdd->query("SELECT * FROM users WHERE pseudo = '$pseudo' AND pass = '$pass'");
 
         $count = $reponse->rowCount();
 
@@ -130,6 +133,8 @@ class user extends Manager
             $_SESSION['pseudo'] = $donnees['pseudo'];
             $_SESSION['prenom'] = $donnees['prenom'];
             $_SESSION['email'] = $donnees['email'];
+            $_SESSION['admin'] = $donnees['admin'];
+
 
             header("Location: /blog");
 
@@ -143,7 +148,7 @@ class user extends Manager
         $passattente = $_POST['pass'];
         $bdd = $this->dbConnect();
         $pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-        $req = $bdd->prepare('INSERT INTO visiteurs (pseudo, email, prenom, pass, date_inscription) VALUES (?, ?, ?, ?, NOW())');
+        $req = $bdd->prepare('INSERT INTO users (pseudo, email, prenom, pass, date_inscription) VALUES (?, ?, ?, ?, NOW())');
         $req->execute(array($_POST['pseud'], $_POST['email'], $_POST['prenom'], $passattente));            
     }
 
@@ -154,7 +159,7 @@ class user extends Manager
 
         $bdd = $this->dbConnect();
 
-        $req = $bdd->query("SELECT * FROM visiteurs WHERE pseudo = '$pseudo'");
+        $req = $bdd->query("SELECT * FROM users WHERE pseudo = '$pseudo'");
 
         $count = $req->rowCount();
 
@@ -162,5 +167,18 @@ class user extends Manager
 
     }
 
+    public function all_Users()
+    {
+        $bdd = $this->dbConnect();
 
+        $all_Users = $bdd->query("SELECT * FROM users");
+
+        return $all_Users;
+    }
+
+    public function valid_Admin($id)
+    {
+        $bdd = $this->dbConnect();
+        $req = $bdd->exec("UPDATE users SET admin = '1' WHERE id = $id");
+    }
 }

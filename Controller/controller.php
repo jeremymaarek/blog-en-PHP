@@ -47,7 +47,7 @@ function connectUse($pseudo, $pass)
 {
         $user = new Blog\jeremy\Model\user();
         $donnees = $user->ConnectAccount($_POST['pseud'], $_POST['pass']);
-        header("Location: /blog");
+        header("Location: /blog-en-php");
 }
 
 function logout()
@@ -77,7 +77,7 @@ function inscription_post()
         if ($count == 0)
         {   
             $donnees = $user->registration($_POST['email'], $_POST['pseud'],$_POST['prenom'], $_POST['pass2'], $_POST['pass']);
-            header("Location: /blog");
+            header("Location: /blog-en-php");
         }
         else
         {
@@ -119,10 +119,13 @@ function add()
     require ("View/add.php");
 }
 
-function addPost($title,$content)
+function addPost($title,$content,$author,$chapo)
 {
     $title = $_POST['title'];
     $content = $_POST['content'];
+    $author = $_POST['author'];
+    $chapo = $_POST['chapo'];
+
     
     $postManager = new Blog\jeremy\Model\PostManager();
 
@@ -130,18 +133,21 @@ function addPost($title,$content)
 
 	$add_post->execute(array(
 		'title' => $title,
-		'content' => $content,
+        'content' => $content,
+        'author' => $author,
+        'chapo' => $chapo,
+
 		));
 
-		header("Location: index.php");
+		header("Location: index.php?action=listeposts");
 }
 
 
-function postModifPost($id, $title, $content)
+function postModifPost($id, $title, $content, $author, $chapo)
 {
-    $postManager = new Blog\jeremy\Model\PostManager();
+    $postManager = new blog\jeremy\Model\PostManager();
 
-    $mod_post = $postManager->modPost($_GET['id'], $_POST['title'], $_POST['content']);
+    $mod_post = $postManager->modPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo']);
 
     if ($mod_post === false){
         throw new Exception('Impossible de modifier le post !');
@@ -161,7 +167,25 @@ function delete($id)
         throw new Exception('Impossible de supprimer le post !');
     }
     else{
-    header("Location: index.php");
+    header("Location: index.php?action=listeposts");
     }
+
+}
+
+function admin_Users()
+{
+    $user = new Blog\jeremy\Model\user();
+
+    $all_Users =$user->all_Users();
+    require ('View/admin_Users.php');
+}
+
+function validate_Admin($id)
+{
+    $id = $_GET['id'];
+    $user = new Blog\jeremy\Model\user();
+    $validate_Users =$user->valid_Admin($id);
+    $all_Users =$user->all_Users();
+    require ('View/admin_Users.php');
 
 }

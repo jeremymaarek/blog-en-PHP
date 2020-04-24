@@ -103,15 +103,16 @@
                     <div class="footer-col col-md-4">
                         <h3>Plan du site :</h3>
                         <a href="index.PHP">Page d'accueil</a><br>
-                        <a href="#">Articles</a><br>
+                        <a href="#">Articles</a> <br>
                         <?php
-                            if ($_SESSION['pseudo'] == "admin") 
-                            {
+                            if (!empty($_SESSION['admin'])){
+                                if ($_SESSION['admin'] == '1') {
                         ?>
-                        <a href="#">Admin : utilisateurs à valider </a><br>
-                        <a href="#">Admin : commentaires à valider</a><br>
+                        <a href="index.php?action=adminUsers">Admin : utilisateurs</a><br>
+                        <a href="#">Admin : commentaires</a><br>
                         <?php
                             }
+                        }
                         ?>
                     </div>
                     <div class="footer-col col-md-4">

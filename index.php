@@ -109,7 +109,7 @@ try {
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0)
                 { 
-                    postModifPost($_GET['id'], $_POST['title'], $_POST['content']);
+                    postModifPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo']);
                 }
         }
 
@@ -126,11 +126,23 @@ try {
             add();
         }
 
+        elseif ($_GET['action'] == 'adminUsers')
+        {
+            admin_Users();
+        }
+
+        elseif ($_GET['action'] == 'validateAdmin')
+        {            
+            if (!empty($_GET['id']) && $_GET['id'] > 0){
+            validate_Admin($_GET['id']);
+            }
+        }
+
         elseif ($_GET['action'] == 'addPost')
         {
-            if (!empty($_POST['title']) && !empty($_POST['content']))
+            if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo']))
                 { 
-                    addPost($_POST['title'], $_POST['content']);
+                    addPost($_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'] );
                 }
         }
 
