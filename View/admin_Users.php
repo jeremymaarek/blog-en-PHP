@@ -56,7 +56,7 @@
                         <td><a href="index.php?action=validateAdmin&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>">Passer admin</a></td>
                     </div>
                     <div class="col-md-1">
-                    <td><a href="#"> Valider user</a></td>
+                    <td><a href="index.php?action=validateUser&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>"> Valider user</a></td>
                     </div>
                 </tr>
                 <?php

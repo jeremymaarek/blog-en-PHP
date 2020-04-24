@@ -181,4 +181,10 @@ class user extends Manager
         $bdd = $this->dbConnect();
         $req = $bdd->exec("UPDATE users SET admin = '1' WHERE id = $id");
     }
+
+    public function valid_User($id)
+    {
+        $bdd = $this->dbConnect();
+        $req = $bdd->exec("UPDATE users SET is_activated = '1' WHERE id = $id");
+    }
 }

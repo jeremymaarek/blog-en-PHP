@@ -189,3 +189,13 @@ function validate_Admin($id)
     require ('View/admin_Users.php');
 
 }
+
+function validate_User($id)
+{
+    $id = $_GET['id'];
+    $user = new Blog\jeremy\Model\user();
+    $validate_Users =$user->valid_User($id);
+    $all_Users =$user->all_Users();
+    require ('View/admin_Users.php');
+
+}

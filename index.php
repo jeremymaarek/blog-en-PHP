@@ -138,6 +138,13 @@ try {
             }
         }
 
+        elseif ($_GET['action'] == 'validateUser')
+        {            
+            if (!empty($_GET['id']) && $_GET['id'] > 0){
+            validate_User($_GET['id']);
+            }
+        }
+
         elseif ($_GET['action'] == 'addPost')
         {
             if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo']))
