@@ -5,8 +5,8 @@ ob_start();
 ?>
     
     <section class="success" id="about">
-        <div class="container">
             <div class="row">
+                <BR><br></BR><img src="view/img/blog.png" alt="logo blog" height="100px"  width="100px" /><br><br>
                 <div class="col-lg-12 text-center">
                     <h1>Le meilleur moyen de prévoir le futur c'est de le créer !</h1>
                     <hr class="star-light">
@@ -17,9 +17,7 @@ ob_start();
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="view/files/CV DE JEREMY MAAREK.pdf" download="cv.pdf" class="btn btn-lg btn-outline">
@@ -27,7 +25,6 @@ ob_start();
                     </a>
                 </div>
             </div>
-        </div>
 </section>
 
 <section class="contact" id="contact">
