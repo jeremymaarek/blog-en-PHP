@@ -28,6 +28,8 @@ session_start();
                 
                 while ($donnees = $comments->fetch())
                 {
+                    if ($donnees['is_activated'] == '1')
+                    {
                     
             ?>
 
@@ -38,6 +40,7 @@ session_start();
 
 
             <?php
+                    }
                 }
                 $comments->closeCursor();
             ?>

@@ -77,7 +77,7 @@ class commentManager extends Manager
     public function comments ($postId)
     {
         $bdd = $this->dbConnect();
-        $comments = $bdd->prepare("SELECT id, post_id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date_comment FROM comments WHERE post_id = ?");
+        $comments = $bdd->prepare("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date_comment FROM comments WHERE post_id = ?");
         $comments->execute(array($postId));
         return $comments;
     }
@@ -91,6 +91,19 @@ class commentManager extends Manager
     'nvauthor' => $pseudo,
     'nv_comment' => $content
     ));
+    }
+
+    public function all_Comments ()
+    {
+        $bdd = $this->dbConnect();
+        $all_Comments = $bdd->query("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y') AS fr_date_comment FROM comments ORDER BY post_id");
+        return $all_Comments;
+    }
+
+    public function valid_Comment($id)
+    {
+        $bdd = $this->dbConnect();
+        $req = $bdd->exec("UPDATE comments SET is_activated = '1' WHERE id = $id");
     }
 }
 

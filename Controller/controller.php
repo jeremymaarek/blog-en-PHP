@@ -199,3 +199,20 @@ function validate_User($id)
     require ('View/admin_Users.php');
 
 }
+
+function admin_Comments()
+{
+    $manager = new Blog\jeremy\Model\commentManager();
+    $all_Comments =$manager->all_Comments();
+    require ('View/admin_Comments.php');
+}
+
+function validate_Comment($id)
+{
+    $id = $_GET['id'];
+    $manager = new Blog\jeremy\Model\commentManager();
+    $validate_Comment =$manager->valid_Comment($id);
+    $all_Comments =$manager->all_Comments();
+    require ('View/admin_Comments.php');
+
+}

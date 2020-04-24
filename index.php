@@ -130,6 +130,18 @@ try {
         {
             admin_Users();
         }
+        
+        elseif ($_GET['action'] == 'adminComments')
+        {
+            admin_Comments();
+        }
+
+        elseif ($_GET['action'] == 'validateComment')
+        {            
+            if (!empty($_GET['id']) && $_GET['id'] > 0){
+            validate_Comment($_GET['id']);
+            }
+        }
 
         elseif ($_GET['action'] == 'validateAdmin')
         {            

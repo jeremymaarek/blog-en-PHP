@@ -109,7 +109,7 @@
                                 if ($_SESSION['admin'] == '1') {
                         ?>
                         <a href="index.php?action=adminUsers">Admin : utilisateurs</a><br>
-                        <a href="#">Admin : commentaires</a><br>
+                        <a href="index.php?action=adminComments">Admin : commentaires</a><br>
                         <?php
                             }
                         }
