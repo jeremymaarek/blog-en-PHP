@@ -1,5 +1,10 @@
 <?php
 session_start();
+$cookie_name = "hui";
+$ticket = session_id().microtime().rand(0,9999999999);
+$ticket = hash('sha512', $ticket);
+setcookie($cookie_name, $ticket, time() + (60 * 20)); 
+$_SESSION['ticket'] = $ticket;
 ob_start();
 ?>
 
