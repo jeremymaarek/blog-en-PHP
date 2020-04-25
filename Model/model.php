@@ -58,7 +58,8 @@ class postManager extends Manager
     public function deleteM ($id)
     {
         $bdd = $this->dbConnect();
-        $delete = $bdd->exec(" DELETE FROM posts WHERE id = $id");
+        $delete = $bdd->prepare("DELETE FROM posts WHERE id = ?");
+        $delete->execute(array($id));
 
     }
 
@@ -108,7 +109,9 @@ class commentManager extends Manager
     public function valid_Comment($id)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->exec("UPDATE comments SET is_activated = '1' WHERE id = $id");
+        $req = $bdd->prepare("UPDATE comments SET is_activated = '1' WHERE id = ?");
+        $req->execute(array($id));
+
     }
 }
 
@@ -121,15 +124,12 @@ class user extends Manager
 
         $pass = $_POST['pass'];
 
-
-        if(isset($_POST['co_auto']))
-        {
-            setcookie('pseudo', "$pseudo", time() + 365*24*3600, null, null, false, true);
-        }
-
         $bdd = $this->dbConnect();
 
-        $reponse = $bdd->query("SELECT * FROM users WHERE pseudo = '$pseudo' AND pass = '$pass' AND is_activated = '1'");
+        $reponse = $bdd->prepare("SELECT * FROM users WHERE pseudo = ? AND pass = ? AND is_activated = '1'");
+        $reponse->execute(array($pseudo, $pass));
+
+
 
         $count = $reponse->rowCount();
 
@@ -177,7 +177,9 @@ class user extends Manager
 
         $bdd = $this->dbConnect();
 
-        $req = $bdd->query("SELECT * FROM users WHERE pseudo = '$pseudo'");
+        $req = $bdd->prepare("SELECT * FROM users WHERE pseudo = ?");
+        $req->execute(array($pseudo));
+
 
         $count = $req->rowCount();
 
@@ -197,12 +199,16 @@ class user extends Manager
     public function valid_Admin($id)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->exec("UPDATE users SET admin = '1' WHERE id = $id");
+        $req = $bdd->prepare("UPDATE users SET admin = '1' WHERE id = ?");
+        $req->execute(array($id));
+
     }
 
     public function valid_User($id)
     {
         $bdd = $this->dbConnect();
-        $req = $bdd->exec("UPDATE users SET is_activated = '1' WHERE id = $id");
+        $req = $bdd->prepare("UPDATE users SET is_activated = '1' WHERE id = ?");
+        $req->execute(array($id));
+
     }
 }
