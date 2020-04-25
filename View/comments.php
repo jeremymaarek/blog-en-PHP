@@ -6,7 +6,7 @@ session_start();
 
 <section>
     <?php
-        $postId = $_GET['id'];
+        $postId = htmlspecialchars($_GET['id']);
                 
         if ($posts->rowCount() > 0)
         {
@@ -28,7 +28,7 @@ session_start();
                 
                 while ($donnees = $comments->fetch())
                 {
-                    if ($donnees['is_activated'] == '1')
+                    if (htmlspecialchars($donnees['is_activated']) == '1')
                     {
                     
             ?>

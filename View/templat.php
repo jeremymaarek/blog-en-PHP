@@ -51,7 +51,7 @@
                     </li>
                     
                     <?php
-                    if (empty($_SESSION['prenom'])) 
+                    if (htmlspecialchars(empty($_SESSION['prenom']))) 
                     {
                     ?>
                     
@@ -63,7 +63,7 @@
                         </li>
                     <?php
                     }
-                    if (!empty($_SESSION['admin'])){
+                    if (htmlspecialchars(!empty($_SESSION['admin']))){
                         if ($_SESSION['admin'] == '1') {
                     ?>
                         <li class="page-scroll">
@@ -74,7 +74,7 @@
                     }
                     ?>
                      <?php
-                    if (!empty($_SESSION['prenom'])) 
+                    if (htmlspecialchars(!empty($_SESSION['prenom']))) 
                     {
                     ?>
                         <li class="page-scroll">
@@ -113,8 +113,8 @@
                         <a href="index.PHP">Page d'accueil</a><br>
                         <a href="#">Articles</a> <br>
                         <?php
-                            if (!empty($_SESSION['admin'])){
-                                if ($_SESSION['admin'] == '1') {
+                            if (htmlspecialchars(!empty($_SESSION['admin']))){
+                                if (htmlspecialchars($_SESSION['admin'] == '1')) {
                         ?>
                         <a href="index.php?action=adminUsers">Admin : utilisateurs</a><br>
                         <a href="index.php?action=adminComments">Admin : commentaires</a><br>
