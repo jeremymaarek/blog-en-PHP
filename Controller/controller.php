@@ -91,6 +91,7 @@ function inscription_post()
 
 function modifComments()
 {
+
     require ("View/modif_comment_view.php");
 }
 
@@ -111,6 +112,8 @@ function postModifComments($postId, $pseudo, $content)
 
 function modifPost()
 {
+    $postManager = new Blog\jeremy\Model\PostManager();
+    $posts =$postManager->posts($_GET['id']);
     require ("View/modifier.php");
 }
 
