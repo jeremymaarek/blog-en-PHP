@@ -70,14 +70,19 @@ class commentManager extends Manager
     public function add_comment ($postId,$author, $comment)
     {
         $bdd = $this->dbConnect();
-        $add_comment = $bdd->exec("INSERT INTO comments (post_id, author, comment, comment_date) VALUES($postId,$author, $comment, now())");
+        $add_comment = $bdd->prepare("INSERT INTO comments (post_id, author, comment, comment_date) VALUES(:post_id, :author, :comment, NOW())");
+        $add_comment->execute(array(
+        'post_id' => $postId,
+        'author' => $author,
+        'comment' => $comment
+        ));
         return $add_comment;
     }
 
     public function comments ($postId)
     {
         $bdd = $this->dbConnect();
-        $comments = $bdd->prepare("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date_comment FROM comments WHERE post_id = ?");
+        $comments = $bdd->prepare("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date_comment FROM comments WHERE post_id = ? ORDER BY comment_date");
         $comments->execute(array($postId));
         return $comments;
     }

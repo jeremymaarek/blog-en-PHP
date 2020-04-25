@@ -63,12 +63,20 @@
                         </li>
                     <?php
                     }
-                    else{
+                    if (!empty($_SESSION['admin'])){
+                        if ($_SESSION['admin'] == '1') {
                     ?>
                         <li class="page-scroll">
                             <a href="index.php?action=add">Ajouter un article</a>
                         </li>
-
+                    <?php
+                        }
+                    }
+                    ?>
+                     <?php
+                    if (!empty($_SESSION['prenom'])) 
+                    {
+                    ?>
                         <li class="page-scroll">
                             <a href="index.php?action=logout">Déconnexion</a>
                         </li>

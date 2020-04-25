@@ -51,7 +51,7 @@ session_start();
                         
                     <form action="index.php?action=addcomment&amp;id=<?= $postId ?>" method="post">
                         <label for="author">Pseudo :</label>
-                        <input type="text"id="author" name="author" value="<?php $pseudo?>"><br>
+                        <input type="text"id="author" name="author" value="<?= $_SESSION['pseudo']?>"><br>
 
                         <label for="comment">Message :</label>
                         <input type="text"id="comment" name="comment"><br>

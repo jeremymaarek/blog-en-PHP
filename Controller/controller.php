@@ -35,7 +35,7 @@ function addcom($postId,$author, $comment)
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else{
-    header("Location: index.php?id=$postId");
+    header("Location: index.php?action=post&id=$postId");
     }
 }
 function login()
