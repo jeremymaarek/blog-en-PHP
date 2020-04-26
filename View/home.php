@@ -25,7 +25,7 @@ ob_start();
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="view/files/CV DE JEREMY MAAREK.pdf" download="cv.pdf" class="btn btn-lg btn-outline">
+                    <a href="view/files/cv.pdf" download="CV Jeremy Maarek.pdf" class="btn btn-lg btn-outline">
                         <i class="fa fa-download"></i> Téléchargez mon CV
                     </a>
                 </div>

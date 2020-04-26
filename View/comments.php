@@ -49,9 +49,12 @@ $_SESSION['ticket'] = $ticket;?>
                 $comments->closeCursor();
             ?>
     
-                <h4>Postez votre commentaire</h4>
+                <h4>Postez votre commentaire </h4>
 
-                
+                <?php 
+                    if (!empty($_SESSION['pseudo'])){
+
+                ?>
                         
                     <form action="index.php?action=addcomment&amp;id=<?= $postId ?>" method="post">
                         <label for="author">Pseudo :</label>
@@ -64,6 +67,16 @@ $_SESSION['ticket'] = $ticket;?>
                     </form>
 
                     <?php
+                    }
+                    else {
+                        echo "Veuillez vous connectez pour poster un commentaire";
+                    ?>
+                        <br><a href="/blog/index.php?action=connect" class="btn btn-lg btn-outline">Se connecter</a></p>
+                    
+                    <?php
+
+                    }
+
         }
         else{
         ?>

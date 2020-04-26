@@ -102,7 +102,7 @@ class commentManager extends Manager
     public function all_Comments ()
     {
         $bdd = $this->dbConnect();
-        $all_Comments = $bdd->query("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y') AS fr_date_comment FROM comments ORDER BY post_id");
+        $all_Comments = $bdd->query("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y') AS fr_date_comment FROM comments WHERE is_activated IS NULL ORDER BY post_id");
         return $all_Comments;
     }
 
