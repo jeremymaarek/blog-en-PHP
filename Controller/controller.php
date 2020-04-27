@@ -1,6 +1,12 @@
 <?php
 
+session_start();
+
 require('Model/model.php');
+require('Model/user.php');
+require('Model/post.php');
+require('Model/comment.php');
+
 
 function listPosts()
 {
@@ -25,17 +31,25 @@ function post()
     require ('View/comments.php');
 }
 
-function addcom($postId,$author, $comment)
+function addcom($postId,$author, $comment, $token)
 {
-    $commentManager = new Blog\jeremy\Model\CommentManager();
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+        if ($_SESSION['token'] == $_POST['token']) {
 
-    $add_comment = $commentManager->add_comment($postId,$author, $comment);
+            $commentManager = new Blog\jeremy\Model\CommentManager();
 
-    if ($add_comment === false){
-        throw new Exception('Impossible d\'ajouter le commentaire !');
+            $add_comment = $commentManager->add_comment($postId,$author, $comment);
+
+            if ($add_comment === false){
+                throw new Exception('Impossible d\'ajouter le commentaire !');
+            }
+            else{
+            header("Location: index.php?action=post&id=$postId");
+            }
+        }
     }
-    else{
-    header("Location: index.php?action=post&id=$postId");
+    else {
+        echo "Erreur de vérification";
     }
 }
 function login()
@@ -43,11 +57,18 @@ function login()
     require ('View/connect.php');
 }
 
-function connectUse($pseudo, $pass)
+function connectUse($pseudo, $pass, $token)
 {
-        $user = new Blog\jeremy\Model\user();
-        $donnees = $user->ConnectAccount($_POST['pseud'], $_POST['pass']);
-        header("Location: /blog-en-php");
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+        if ($_SESSION['token'] == $_POST['token']) {
+            $user = new Blog\jeremy\Model\user();
+            $donnees = $user->ConnectAccount($_POST['pseud'], $_POST['pass']);
+            header("Location: /blog-en-php");
+        }
+    }
+    else {
+        echo "Erreur de vérification";
+    }
 }
 
 function logout()
@@ -95,17 +116,24 @@ function modifComments()
     require ("View/modif_comment_view.php");
 }
 
-function postModifComments($postId, $pseudo, $content)
+function postModifComments($postId, $pseudo, $content, $token)
 {
-    $commentManager = new Blog\jeremy\Model\CommentManager();
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+        if ($_SESSION['token'] == $_POST['token']) {
+            $commentManager = new Blog\jeremy\Model\CommentManager();
 
-    $mod_comment = $commentManager->modComment($_GET['postId'], $_POST['pseudo'], $_POST['content']);
+            $mod_comment = $commentManager->modComment($_GET['postId'], $_POST['pseudo'], $_POST['content']);
 
-    if ($mod_comment === false){
-        throw new Exception('Impossible de modifier le commentaire !');
+            if ($mod_comment === false){
+                throw new Exception('Impossible de modifier le commentaire !');
+            }
+            else{
+            header("Location: index.php?action=post&id=$postId");
+            }
+        }
     }
-    else{
-    header("Location: index.php?id=$postId");
+    else {
+        echo "Erreur de vérification";
     }
 
 }
@@ -122,44 +150,62 @@ function add()
     require ("View/add.php");
 }
 
-function addPost($title,$content,$author,$chapo)
+function addPost($title,$content,$author,$chapo,$token)
 {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $author = $_POST['author'];
-    $chapo = $_POST['chapo'];
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+        if ($_SESSION['token'] == $_POST['token']) {
 
-    
-    $postManager = new Blog\jeremy\Model\PostManager();
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $author = $_POST['author'];
+            $chapo = $_POST['chapo'];
 
-	$add_post = $postManager->add_post();
+            
+            $postManager = new Blog\jeremy\Model\PostManager();
 
-	$add_post->execute(array(
-		'title' => $title,
-        'content' => $content,
-        'author' => $author,
-        'chapo' => $chapo,
+            $add_post = $postManager->add_post();
 
-		));
+            $add_post->execute(array(
+                'title' => $title,
+                'content' => $content,
+                'author' => $author,
+                'chapo' => $chapo,
 
-		header("Location: index.php?action=listeposts");
-}
+                ));
 
-
-function postModifPost($id, $title, $content, $author, $chapo)
-{
-    $postManager = new blog\jeremy\Model\PostManager();
-
-    $mod_post = $postManager->modPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo']);
-
-    if ($mod_post === false){
-        throw new Exception('Impossible de modifier le post !');
+                header("Location: index.php?action=listeposts");
+        }
     }
     else{
-    header("Location: index.php");
+        header("Location: index.php");
+    }    
+}
+
+
+function postModifPost($id, $title, $content, $author, $chapo, $token)
+{
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+        if ($_SESSION['token'] == $_POST['token']) {
+
+            $postManager = new blog\jeremy\Model\PostManager();
+
+            $mod_post = $postManager->modPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo']);
+
+            if ($mod_post === false){
+                throw new Exception('Impossible de modifier le post !');
+            }
+
+            else{
+            header("Location: index.php");
+            }
+        }
     }
+    else{
+        header("Location: index.php");
+    }  
 
 }
+
 
 function delete($id)
 {
@@ -217,5 +263,4 @@ function validate_Comment($id)
     $validate_Comment =$manager->valid_Comment($id);
     $all_Comments =$manager->all_Comments();
     require ('View/admin_Comments.php');
-
 }

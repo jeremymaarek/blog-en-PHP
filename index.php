@@ -25,8 +25,8 @@ try {
         elseif($_GET['action'] == 'addcomment')
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                    addcom($_GET['id'], $_POST['author'], $_POST['comment']);
+                if (!empty($_POST['author']) && !empty($_POST['comment']) && !empty($_POST['token'])) {
+                    addcom($_GET['id'], $_POST['author'], $_POST['comment'], $_POST['toke']);
                 }
                 else{
                     throw new Exception('Tous les champs ne sont pas remplis !');
@@ -40,9 +40,9 @@ try {
 
         elseif ($_GET['action'] == 'connectUser'){
 
-            if(!empty($_POST['pseud']) && !empty($_POST['pass']))
+            if(!empty($_POST['pseud']) && !empty($_POST['pass']) && !empty($_POST['token']) )
             {
-                connectUse($_POST['pseud'], $_POST['pass']);
+                connectUse($_POST['pseud'], $_POST['pass'], $_POST['token']);
             }
 
         }
@@ -91,9 +91,9 @@ try {
 
         elseif ($_GET['action'] == 'postModifComments')
         {
-            if (!empty($_GET['postId']) && $_GET['postId'] > 0)
+            if (!empty($_GET['postId']) && $_GET['postId'] > 0 && !empty($_GET['pseudo']) && !empty($_GET['content']) && !empty($_GET['token']))
                 { 
-                    postModifComments($_GET['postId'], $_POST['pseudo'], $_POST['content']);
+                    postModifComments($_GET['postId'], $_POST['pseudo'], $_POST['content'], $_POST['token']);
                 }
         }
 
@@ -107,9 +107,9 @@ try {
 
         elseif ($_GET['action'] == 'postModifPost')
         {
-            if (!empty($_GET['id']) && $_GET['id'] > 0)
+            if (!empty($_GET['id']) && $_GET['id'] > 0 && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo']) && !empty($_POST['token']))
                 { 
-                    postModifPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo']);
+                    postModifPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'], $_POST['token']);
                 }
         }
 
@@ -159,9 +159,9 @@ try {
 
         elseif ($_GET['action'] == 'addPost')
         {
-            if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo']))
+            if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo'])&& !empty($_POST['token']))
                 { 
-                    addPost($_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'] );
+                    addPost($_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'], $_POST['token'] );
                 }
         }
 

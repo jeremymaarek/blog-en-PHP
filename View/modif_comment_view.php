@@ -1,11 +1,9 @@
 <?php
     session_start();
-    $cookie_name = "hui";
-    $ticket = session_id().microtime().rand(0,9999999999);
-    $ticket = hash('sha512', $ticket);
-    setcookie($cookie_name, $ticket, time() + (60 * 20)); 
-    $_SESSION['ticket'] = $ticket;    
+    if ($_SESSION['admin'] == 1){
     ob_start();
+    $token = bin2hex(random_bytes(32));;
+    $_SESSION['token'] = $token;
 ?>
 <section>  
     <div class="col-lg-12">
@@ -25,6 +23,7 @@
         <div class="col-xs-6 text-left">
             <input type="text"id="content" name="content"><br>
         </div>
+        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
         <input type="submit" name="Modifier"><br><br>
     
     </form>
@@ -32,8 +31,9 @@
 
 
 <?php
+    }
     $content = ob_get_clean();
-    require ('View/templat.php')
+    require ('View/templat.php');
 ?>
 
 

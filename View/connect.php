@@ -1,5 +1,9 @@
 <?php
 ob_start();
+session_start();
+$token = bin2hex(random_bytes(32));;
+$_SESSION['token'] = $token;
+
 ?>
 
 
@@ -22,6 +26,8 @@ ob_start();
                 <div class="col-xs-6 text-left">
                     <input type="password"id="pass" name="pass"><br>
                 </div>
+
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
 
                 <input type="submit" name="Me connecter" class="btn btn-lg btn-outline"><br><br>
         </form>

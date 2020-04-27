@@ -1,11 +1,9 @@
 <?php
     ob_start();
     session_start();
-    $cookie_name = "hui";
-    $ticket = session_id().microtime().rand(0,9999999999);
-    $ticket = hash('sha512', $ticket);
-    setcookie($cookie_name, $ticket, time() + (60 * 20)); 
-    $_SESSION['ticket'] = $ticket;?>
+    if ($_SESSION['admin'] == 1){
+?>
+
 <section>
     <div class="col-lg-12">
         <H1>Administration des utilisateurs :</h1><br><br>
@@ -71,6 +69,7 @@
 </section>
 
 <?php
+    }
     $all_Users->closeCursor();
     $content = ob_get_clean();
     require ('View/templat.php');

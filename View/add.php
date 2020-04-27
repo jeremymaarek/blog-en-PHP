@@ -1,11 +1,10 @@
 <?php
     ob_start();
     session_start();
-    $cookie_name = "hui";
-    $ticket = session_id().microtime().rand(0,9999999999);
-    $ticket = hash('sha512', $ticket);
-    setcookie($cookie_name, $ticket, time() + (60 * 20)); 
-    $_SESSION['ticket'] = $ticket;?>
+    if ($_SESSION['admin'] == 1){
+    $token = bin2hex(random_bytes(32));;
+    $_SESSION['token'] = $token;
+?> 
 <section>
     <div class="col-lg-12">
         <H1>Ajouter un post :</h1><br><br>
@@ -25,10 +24,13 @@
         <label for="content">Contenu :</label><br>
         <textarea id="content" name="content" rows="20" class="form-control"></textarea><BR></BR>
 
+        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
+
         <input type="submit" name="Ajouter l'article" class="btn btn-lg btn-outline"><br><br>
     </form>
 </section>
 <?php
+    }
     $content = ob_get_clean();
     require ('templat.php')
 ?>

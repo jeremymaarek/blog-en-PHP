@@ -1,12 +1,9 @@
 <?php
 ob_start();
+$token = bin2hex(random_bytes(32));;
+$_SESSION['token'] = $token;
 session_start();
-$cookie_name = "hui";
-$ticket = session_id().microtime().rand(0,9999999999);
-$ticket = hash('sha512', $ticket);
-setcookie($cookie_name, $ticket, time() + (60 * 20)); 
-$_SESSION['ticket'] = $ticket;?>
-
+?>
 
 <section>
     <?php
@@ -38,7 +35,16 @@ $_SESSION['ticket'] = $ticket;?>
             ?>
 
                 <div>
-                    <strong> <?php echo htmlspecialchars($donnees['author']) ?> </strong> le <?php echo htmlspecialchars($donnees['fr_date_comment']) ?> (<a href="index.php?action=modifComments&amp;postId=<?= htmlspecialchars($donnees['id'])?>">Modifier</a>) <br><br>
+                    <strong> <?php echo htmlspecialchars($donnees['author']) ?> </strong> le <?php echo htmlspecialchars($donnees['fr_date_comment']) ?> 
+                    <?php
+                        if (htmlspecialchars(!empty($_SESSION['admin']))){
+                            if ($_SESSION['admin'] == '1') {
+                    ?>
+                    (<a href="index.php?action=modifComments&amp;postId=<?= htmlspecialchars($donnees['id'])?>">Modifier</a>) <br><br>
+                    <?php
+                            }
+                        }
+                    ?>
                     <?php echo htmlspecialchars($donnees['comment']) ?><br><br><br>
                 </div>
 
@@ -62,6 +68,8 @@ $_SESSION['ticket'] = $ticket;?>
 
                         <label for="comment">Message :</label>
                         <input type="text"id="comment" name="comment"><br>
+
+                        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
 
                         <input type="submit" name="envoyer"><br><br>
                     </form>

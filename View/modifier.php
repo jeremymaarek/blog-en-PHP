@@ -1,11 +1,9 @@
 <?php
 session_start();
-$cookie_name = "hui";
-$ticket = session_id().microtime().rand(0,9999999999);
-$ticket = hash('sha512', $ticket);
-setcookie($cookie_name, $ticket, time() + (60 * 20)); 
-$_SESSION['ticket'] = $ticket;
+if ($_SESSION['admin'] == 1){
 ob_start();
+$token = bin2hex(random_bytes(32));;
+$_SESSION['token'] = $token;
 ?>
 
 <section>  
@@ -48,6 +46,7 @@ ob_start();
         <div class="col-xs-12">
             <textarea id="content" name="content" rows="20"  class="form-control"><?= htmlspecialchars($donnees['content']) ?></textarea><BR></BR>
         </div>
+        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
         <input type="submit" name="Mettre à jour" class="btn btn-lg btn-outline"><br><br>
 
     </form>
@@ -57,7 +56,8 @@ ob_start();
 <?php
             }
         }
-        $posts->closeCursor();
-        $content = ob_get_clean();
-        require ('View/templat.php');
-    ?>
+}
+$posts->closeCursor();
+$content = ob_get_clean();
+require ('View/templat.php');
+?>
