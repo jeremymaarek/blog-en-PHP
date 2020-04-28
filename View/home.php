@@ -83,5 +83,4 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-require ('templat.php')
-?>
+require ('templat.php');

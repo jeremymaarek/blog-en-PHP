@@ -90,12 +90,10 @@ session_start();
         ?>
             <h6>Ce billet n'existe pas</h6>
             <a href="index.php">Revenir à la page d'accueil</a>
-
-        <?php
-        }
-        $content = ob_get_clean();
-        require ('View/templat.php');
-        ?>
 </section>
 
+<?php
+    }
+    $content = ob_get_clean();
+    require ('View/templat.php');
 

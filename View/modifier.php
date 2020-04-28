@@ -60,4 +60,3 @@ $_SESSION['token'] = $token;
 $posts->closeCursor();
 $content = ob_get_clean();
 require ('View/templat.php');
-?>

@@ -41,4 +41,3 @@ $_SESSION['token'] = $token;
 <?php
     $content = ob_get_clean();
     require ('View/templat.php');
-?>

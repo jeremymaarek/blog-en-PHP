@@ -11,7 +11,7 @@ require('Model/comment.php');
 function listPosts()
 {
     $postManager = new Blog\jeremy\Model\PostManager();
-    $all_posts = $postManager->all_posts();
+    $all_posts = $postManager->allPosts();
     require ('View/index_view.php');
 
 }
@@ -33,12 +33,12 @@ function post()
 
 function addcom($postId,$author, $comment, $token)
 {
-    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
 
             $commentManager = new Blog\jeremy\Model\CommentManager();
 
-            $add_comment = $commentManager->add_comment($postId,$author, $comment);
+            $add_comment = $commentManager->addComment($postId,$author, $comment);
 
             if ($add_comment === false){
                 throw new Exception('Impossible d\'ajouter le commentaire !');
@@ -59,7 +59,7 @@ function login()
 
 function connectUse($pseudo, $pass, $token)
 {
-    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
             $user = new Blog\jeremy\Model\user();
             $donnees = $user->ConnectAccount($_POST['pseud'], $_POST['pass']);
@@ -118,7 +118,7 @@ function modifComments()
 
 function postModifComments($postId, $pseudo, $content, $token)
 {
-    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
             $commentManager = new Blog\jeremy\Model\CommentManager();
 
@@ -152,7 +152,7 @@ function add()
 
 function addPost($title,$content,$author,$chapo,$token)
 {
-    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
 
             $title = $_POST['title'];
@@ -163,7 +163,7 @@ function addPost($title,$content,$author,$chapo,$token)
             
             $postManager = new Blog\jeremy\Model\PostManager();
 
-            $add_post = $postManager->add_post();
+            $add_post = $postManager->addPost();
 
             $add_post->execute(array(
                 'title' => $title,
@@ -184,7 +184,7 @@ function addPost($title,$content,$author,$chapo,$token)
 
 function postModifPost($id, $title, $content, $author, $chapo, $token)
 {
-    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
 
             $postManager = new blog\jeremy\Model\PostManager();
@@ -225,7 +225,7 @@ function admin_Users()
 {
     $user = new Blog\jeremy\Model\user();
 
-    $all_Users =$user->all_Users();
+    $all_Users =$user->allUsers();
     require ('View/admin_Users.php');
 }
 
@@ -233,8 +233,8 @@ function validate_Admin($id)
 {
     $id = $_GET['id'];
     $user = new Blog\jeremy\Model\user();
-    $validate_Users =$user->valid_Admin($id);
-    $all_Users =$user->all_Users();
+    $validate_Users =$user->validAdmin($id);
+    $all_Users =$user->allUsers();
     require ('View/admin_Users.php');
 
 }
@@ -243,24 +243,24 @@ function validate_User($id)
 {
     $id = $_GET['id'];
     $user = new Blog\jeremy\Model\user();
-    $validate_Users =$user->valid_User($id);
-    $all_Users =$user->all_Users();
+    $validate_Users =$user->validUser($id);
+    $all_Users =$user->allUsers();
     require ('View/admin_Users.php');
 
 }
 
 function admin_Comments()
 {
-    $manager = new Blog\jeremy\Model\commentManager();
-    $all_Comments =$manager->all_Comments();
+    $manager = new Blog\jeremy\Model\CommentManager();
+    $all_Comments =$manager->allComments();
     require ('View/admin_Comments.php');
 }
 
 function validate_Comment($id)
 {
     $id = $_GET['id'];
-    $manager = new Blog\jeremy\Model\commentManager();
-    $validate_Comment =$manager->valid_Comment($id);
-    $all_Comments =$manager->all_Comments();
+    $manager = new Blog\jeremy\Model\CommentManager();
+    $validate_Comment =$manager->validComment($id);
+    $all_Comments =$manager->allComments();
     require ('View/admin_Comments.php');
 }

@@ -2,9 +2,9 @@
 
 namespace Blog\jeremy\Model;
 
-class user extends Manager
+class User extends Manager
 {
-    public function ConnectAccount($pseudo, $pass)
+    public function connectAccount($pseudo, $pass)
     {
 
         $pseudo = $_POST['pseud'];
@@ -74,7 +74,7 @@ class user extends Manager
 
     }
 
-    public function all_Users()
+    public function allUsers()
     {
         $bdd = $this->dbConnect();
 
@@ -83,7 +83,7 @@ class user extends Manager
         return $all_Users;
     }
 
-    public function valid_Admin($id)
+    public function validAdmin($id)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE users SET admin = '1' WHERE id = ?");
@@ -91,7 +91,7 @@ class user extends Manager
 
     }
 
-    public function valid_User($id)
+    public function validUser($id)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE users SET is_activated = '1' WHERE id = ?");

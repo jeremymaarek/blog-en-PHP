@@ -2,9 +2,9 @@
 
 namespace Blog\jeremy\Model;
 
-class commentManager extends Manager
+class CommentManager extends Manager
 {
-    public function add_comment ($postId,$author, $comment)
+    public function addComment ($postId,$author, $comment)
     {
         $bdd = $this->dbConnect();
         $add_comment = $bdd->prepare("INSERT INTO comments (post_id, author, comment, comment_date) VALUES(:post_id, :author, :comment, NOW())");
@@ -35,14 +35,14 @@ class commentManager extends Manager
     ));
     }
 
-    public function all_Comments ()
+    public function allComments ()
     {
         $bdd = $this->dbConnect();
         $all_Comments = $bdd->query("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y') AS fr_date_comment FROM comments WHERE is_activated IS NULL ORDER BY post_id");
         return $all_Comments;
     }
 
-    public function valid_Comment($id)
+    public function validComment($id)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE comments SET is_activated = '1' WHERE id = ?");

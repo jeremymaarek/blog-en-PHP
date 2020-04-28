@@ -2,10 +2,10 @@
 
 namespace Blog\jeremy\Model;
 
-class postManager extends Manager
+class PostManager extends Manager
 {
 
-    public function all_posts()
+    public function allPosts()
     {
         $bdd = $this->dbConnect();
 
@@ -23,7 +23,7 @@ class postManager extends Manager
 
     }
 
-    public function add_post ()
+    public function addPost ()
     {
         $bdd = $this->dbConnect();
         $add_post = $bdd->prepare('INSERT INTO posts(title, content, chapo, author, creation_date) VALUES(:title, :content, :chapo, :author, NOW())');
