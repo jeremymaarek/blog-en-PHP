@@ -57,12 +57,12 @@ function login()
     require ('View/connect.php');
 }
 
-function connectUse($pseudo, $pass, $token)
+function connectUse()
 {
     if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
             $user = new Blog\jeremy\Model\user();
-            $donnees = $user->ConnectAccount($_POST['pseud'], $_POST['pass']);
+            $user->ConnectAccount($_POST['pseud'], $_POST['pass']);
             header("Location: /blog-en-php");
         }
     }
@@ -97,7 +97,7 @@ function inscription_post()
         $count = $user->controlUser($_POST['pseud']);
         if ($count == 0)
         {   
-            $donnees = $user->registration($_POST['email'], $_POST['pseud'],$_POST['prenom'], $_POST['pass2'], $_POST['pass']);
+            $user->registration($_POST['email'], $_POST['pseud'],$_POST['prenom'], $_POST['pass2'], $_POST['pass']);
             header("Location: /blog-en-php");
         }
         else
@@ -150,7 +150,7 @@ function add()
     require ("View/add.php");
 }
 
-function addPost($title,$content,$author,$chapo,$token)
+function addPost($title,$content,$author,$chapo)
 {
     if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {

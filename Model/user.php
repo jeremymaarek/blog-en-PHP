@@ -49,10 +49,8 @@ class User extends Manager
 
     public function registration($email, $pseudo, $prenom, $pass2, $pass)
     {
-        $pseudo = $_POST['pseud'];
         $passattente = $_POST['pass'];
         $bdd = $this->dbConnect();
-        $pass_hache = password_hash($_POST['pass'], PASSWORD_DEFAULT);
         $req = $bdd->prepare('INSERT INTO users (pseudo, email, prenom, pass, date_inscription) VALUES (?, ?, ?, ?, NOW())');
         $req->execute(array($_POST['pseud'], $_POST['email'], $_POST['prenom'], $passattente));            
     }
