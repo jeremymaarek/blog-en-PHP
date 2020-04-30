@@ -143,8 +143,10 @@ function postModifComments($postId, $pseudo, $content, $token)
 function modifPost()
 {
     $postManager = new Blog\jeremy\Model\PostManager();
-    $posts =$postManager->posts($_GET['id']);
+    $post = new Blog\jeremy\Model\Post;
+    $req =$postManager->getPosts($_GET['id']);
     require ("View/modifier.php");
+
 }
 
 function add()
@@ -157,25 +159,18 @@ function addPost($title,$content,$author,$chapo)
     if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
 
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $author = $_POST['author'];
-            $chapo = $_POST['chapo'];
-
+            $datas['title'] = $_POST['title'];
+            $datas['content']  = $_POST['content'];
+            $datas['author'] = $_POST['author'];
+            $datas['chapo'] = $_POST['chapo'];
+    
+            $post = new Blog\jeremy\Model\Post($datas);
             
             $postManager = new Blog\jeremy\Model\PostManager();
 
-            $add_post = $postManager->addPost();
+            $add_post = $postManager->addPost($post->title(), $post->content(), $post->author(), $post->chapo());
 
-            $add_post->execute(array(
-                'title' => $title,
-                'content' => $content,
-                'author' => $author,
-                'chapo' => $chapo,
-
-                ));
-
-                header("Location: index.php?action=listeposts");
+            header("Location: index.php?action=listeposts");
         }
     }
     else{
@@ -189,16 +184,23 @@ function postModifPost($id, $title, $content, $author, $chapo, $token)
     if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
         if ($_SESSION['token'] == $_POST['token']) {
 
+            $datas['title'] = $_POST['title'];
+            $datas['content']  = $_POST['content'];
+            $datas['author'] = $_POST['author'];
+            $datas['chapo'] = $_POST['chapo'];
+
+            $post = new Blog\jeremy\Model\Post($datas);
+
             $postManager = new blog\jeremy\Model\PostManager();
 
-            $mod_post = $postManager->modPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo']);
+            $mod_post = $postManager->modPost($_GET['id'], $post->title(), $post->content(), $post->author(), $post->chapo());
 
             if ($mod_post === false){
                 throw new Exception('Impossible de modifier le post !');
             }
 
             else{
-            header("Location: index.php");
+            header("Location: index.php?action=listeposts");
             }
         }
     }

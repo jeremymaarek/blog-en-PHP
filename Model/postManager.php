@@ -31,10 +31,16 @@ class PostManager extends Manager
         return $post;
     }
 
-    public function addPost ()
+    public function addPost ($title, $content, $author, $chapo)
     {
         $bdd = $this->dbConnect();
         $add_post = $bdd->prepare('INSERT INTO posts(title, content, chapo, author, creation_date) VALUES(:title, :content, :chapo, :author, NOW())');
+        $add_post->execute(array(
+            'title' => $title,
+            'content' => $content,
+            'author' => $author,
+            'chapo' => $chapo,
+            ));
         return $add_post;
     }
 
@@ -51,7 +57,6 @@ class PostManager extends Manager
 
     ));
     }
-
 
     public function deleteM ($id)
     {
