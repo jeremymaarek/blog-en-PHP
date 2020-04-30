@@ -2,15 +2,16 @@
 
 session_start();
 
-require('Model/model.php');
-require('Model/user.php');
-require('Model/post.php');
-require('Model/comment.php');
+require_once ('Model/model.php');
+require_once ('Model/user.php');
+require_once ('Model/postManager.php');
+require_once ('Model/comment.php');
 
 
 function listPosts()
 {
     $postManager = new Blog\jeremy\Model\PostManager();
+    $post = new Blog\jeremy\Model\Post;
     $all_posts = $postManager->allPosts();
     require ('View/index_view.php');
 
@@ -25,8 +26,9 @@ function post()
 {            
     $postManager = new Blog\jeremy\Model\PostManager();
     $commentManager = new Blog\jeremy\Model\CommentManager();
+    $post = new Blog\jeremy\Model\Post;
 
-    $posts =$postManager->posts($_GET['id']);
+    $req =$postManager->getPosts($_GET['id']);
     $comments = $commentManager->comments($_GET['id']);
     require ('View/comments.php');
 }

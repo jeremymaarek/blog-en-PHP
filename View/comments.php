@@ -2,30 +2,25 @@
 ob_start();
 $token = bin2hex(random_bytes(32));;
 $_SESSION['token'] = $token;
-session_start();
 ?>
 
 <section>
     <?php
         $postId = htmlspecialchars($_GET['id']);
-                
-        if ($posts->rowCount() > 0)
+        
+        if (!empty($post))
         {
-            while ($donnees = $posts->fetch())
-            {
             ?>
                 
                 <div class="news">
-                    <h1><?php echo htmlspecialchars($donnees['title']) ?></h1> écrit par <?php echo htmlspecialchars($donnees['author']) ?>, mise à jour le <?php echo htmlspecialchars($donnees['fr_date']) ?> <br><br><br>
-                    <p>Introduction :<br><?php echo htmlspecialchars($donnees['chapo']) ?><br>
-                    <p><?php echo htmlspecialchars($donnees['content']) ?><br>
+                    <h1><?= htmlspecialchars($req->title()) ?></h1> écrit par <?= htmlspecialchars($req->author()) ?>, mise à jour le <?= htmlspecialchars($req->created()) ?> <br><br><br>
+                    <p>Introduction :<br><?= htmlspecialchars($req->chapo()) ?><br>
+                    <p><?= htmlspecialchars($req->content()) ?><br>
                 </div><BR></BR>
 
                 <h4>Commentaires sur cet article</h4>
         
             <?php
-                    }
-                    $posts->closeCursor();
                 
                 while ($donnees = $comments->fetch())
                 {

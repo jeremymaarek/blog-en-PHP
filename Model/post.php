@@ -2,56 +2,89 @@
 
 namespace Blog\jeremy\Model;
 
-class PostManager extends Manager
+class Post
 {
+    private $_id;
+    private $_title;
+    private $_content;
+    private $_created;
+    private $_author;
+    private $_chapo;
 
-    public function allPosts()
+    public function __construct($datas = [])
     {
-        $bdd = $this->dbConnect();
-
-        $all_posts = $bdd->query("SELECT id, title, content, chapo, author, DATE_FORMAT(creation_date, '%d/%m/%Y') AS fr_date FROM posts ORDER BY id DESC");
-
-        return $all_posts;
+        if (!empty($datas))
+        {
+            $this->hydrate($datas);
+        }
     }
 
-    public function posts($postId)
+     public function hydrate(array $datas)
     {
-        $bdd = $this->dbConnect();
-        $posts = $bdd->prepare("SELECT id, title, content, chapo, author, DATE_FORMAT(creation_date, '%d/%m/%Y') AS fr_date FROM posts WHERE id = ?");
-        $posts->execute(array($postId));
-        return $posts;
+        if (isset($datas['id']))
+        {
+          $this->setId($datas['id']);
+        }
+      
+        if (isset($datas['title']))
+        {
+          $this->setTitle($datas['title']);
+        }
 
+        if (isset($datas['content']))
+        {
+          $this->setContent($datas['content']);
+        }
+        if (isset($datas['fr_date']))
+        {
+          $this->setCreated($datas['fr_date']);
+        }
+        if (isset($datas['author']))
+        {
+          $this->setAuthor($datas['author']);
+        }
+        if (isset($datas['chapo']))
+        {
+          $this->setChapo($datas['chapo']);
+        }
+    }
+  
+  
+    public function id() {return $this->_id;}
+    public function title() {return $this->_title;}
+    public function content() {return $this->_content;}
+    public function created() {return $this->_created;}
+    public function author() {return $this->_author;}
+    public function chapo() {return $this->_chapo;}
+
+    public function setId($id)
+    {    
+      $this->_id = $id;
     }
 
-    public function addPost ()
-    {
-        $bdd = $this->dbConnect();
-        $add_post = $bdd->prepare('INSERT INTO posts(title, content, chapo, author, creation_date) VALUES(:title, :content, :chapo, :author, NOW())');
-        return $add_post;
+    public function setContent($content)
+    {   
+      $this->_content = $content;
     }
 
-    public function modPost ($id, $title, $content, $author, $chapo)
-    {
-    $bdd = $this->dbConnect();
-    $req = $bdd->prepare("UPDATE posts SET title = :nvtitle, content = :nv_content, creation_date = NOW(), author = :nvauthor, chapo = :nvchapo WHERE id = $id");
-
-    $req->execute(array(
-    'nvtitle' => $title,
-    'nv_content' => $content,
-    'nvauthor' => $author,
-    'nvchapo' => $chapo
-
-    ));
+    public function setTitle($title)
+    {   
+      $this->_title = $title;
     }
 
-
-    public function deleteM ($id)
-    {
-        $bdd = $this->dbConnect();
-        $delete = $bdd->prepare("DELETE FROM posts WHERE id = ?");
-        $delete->execute(array($id));
-
+    public function setAuthor($author)
+    {    
+      $this->_author = $author;
     }
 
+    public function setChapo($chapo)
+    {
+      $this->_chapo = $chapo;
+    }
+
+    public function setCreated($created)
+    {
+        $this->_created = $created;
+    }
 
 }
