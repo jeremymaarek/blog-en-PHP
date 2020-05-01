@@ -12,12 +12,12 @@ class UserController
         $this->userManager = new Blog\jeremy\Model\UserManager();
     }
 
-    function login()
+    public function login()
     {
         require ('View/connect.php');
     }
 
-    function connectUse()
+    public function connectUse()
     {
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
@@ -31,12 +31,12 @@ class UserController
         }
     }
 
-    function registration()
+    public function registration()
     {
         require ('View/inscription.php');
     }
 
-    function inscription_post()
+    public function inscriptionPost()
     {
         if ($_POST['pass'] != $_POST['pass2'])
         {
@@ -58,14 +58,14 @@ class UserController
         }
     }
 
-    function admin_Users()
+    public function adminUsers()
     {
         $user = new Blog\jeremy\Model\user();
         $all_Users = $this->userManager->allUsers();
         require ('View/admin_Users.php');
     }
 
-    function validate_Admin($id)
+    public function validateAdmin($id)
     {
         $id = $_GET['id'];
         $user = new Blog\jeremy\Model\user();
@@ -74,7 +74,7 @@ class UserController
         require ('View/admin_Users.php');
     }
 
-    function validate_User($id)
+    public function validateUser($id)
     {
         $id = $_GET['id'];
         $user = new Blog\jeremy\Model\user();
@@ -83,7 +83,7 @@ class UserController
         require ('View/admin_Users.php');
     }
 
-    function logout()
+    public function logout()
     {
         session_start();
         session_destroy();

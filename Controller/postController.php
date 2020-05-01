@@ -14,7 +14,7 @@ class PostController
         $this->postManager = new Blog\jeremy\Model\PostManager();
     }
 
-    function listPosts()
+    public function listPosts()
     {
         $post = new Blog\jeremy\Model\Post;
         $all_posts = $this->postManager->allPosts();
@@ -22,7 +22,7 @@ class PostController
 
     }
 
-    function post()
+    public function post()
     {            
         $commentManager = new Blog\jeremy\Model\CommentManager();
         $post = new Blog\jeremy\Model\Post;
@@ -32,7 +32,7 @@ class PostController
         require ('View/comments.php');
     }
 
-    function modifPost()
+    public function modifPost()
     {
         $post = new Blog\jeremy\Model\Post;
         $req =$this->postManager->getPosts($_GET['id']);
@@ -40,12 +40,12 @@ class PostController
 
     }
 
-    function add()
+    public function add()
     {
         require ("View/add.php");
     }
 
-    function addPost($title,$content,$author,$chapo)
+    public function addPost($title,$content,$author,$chapo)
     {
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
@@ -63,7 +63,7 @@ class PostController
     }
 
 
-    function postModifPost($id, $title, $content, $author, $chapo, $token)
+    public function postModifPost($id, $title, $content, $author, $chapo, $token)
     {
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
@@ -85,7 +85,7 @@ class PostController
 
     }
 
-    function delete($id)
+    public function delete($id)
     {
         $post = new Blog\jeremy\Model\Post();
         $deletePost = $this->postManager->deleteM($id);

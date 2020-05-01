@@ -80,7 +80,7 @@ try {
 
             if(!empty($_POST['email']) && !empty($_POST['pseud']) && !empty($_POST['prenom']) && !empty($_POST['pass2']) && !empty($_POST['pass']))
             {
-                $UserController->inscription_post();
+                $UserController->inscriptionPost();
             }
         }
 
@@ -136,7 +136,7 @@ try {
 
         elseif ($_GET['action'] == 'adminUsers')
         {
-            $UserController->admin_Users();
+            $UserController->adminUsers();
         }
         
         elseif ($_GET['action'] == 'adminComments')
@@ -154,14 +154,14 @@ try {
         elseif ($_GET['action'] == 'validateAdmin')
         {            
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-                $UserController->validate_Admin($_GET['id']);
+                $UserController->validateAdmin($_GET['id']);
             }
         }
 
         elseif ($_GET['action'] == 'validateUser')
         {            
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-                $UserController->validate_User($_GET['id']);
+                $UserController->validateUser($_GET['id']);
             }
         }
 
