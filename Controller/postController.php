@@ -9,6 +9,12 @@ function listPosts()
     $postManager = new Blog\jeremy\Model\PostManager();
     $post = new Blog\jeremy\Model\Post;
     $all_posts = $postManager->allPosts();
+    while ($datas = $all_posts->fetch())
+    {
+        $post = new Post();
+        $post->hydrate($datas);
+        $Posts[] = $post;
+    }
     require ('View/index_view.php');
 
 }

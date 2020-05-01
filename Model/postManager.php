@@ -11,13 +11,7 @@ class PostManager extends Manager
         $Posts = [];
         $bdd = $this->dbConnect();
         $all_posts = $bdd->query("SELECT id, title, content, chapo, author, DATE_FORMAT(creation_date, '%d/%m/%Y') AS fr_date FROM posts ORDER BY id DESC");
-        while ($datas = $all_posts->fetch())
-        {
-            $post = new Post();
-            $post->hydrate($datas);
-            $Posts[] = $post;
-        }
-        return $Posts;
+        return $all_posts;
     }
 
     public function getPosts($postId)
