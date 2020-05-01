@@ -6,18 +6,20 @@ require ('controller/commentController.php');
 require ('controller/postController.php');
 require ('controller/userController.php');
 
+$postController = new PostController;
+
 try {
     if (isset($_GET['action']))
     {
         if ($_GET['action'] == 'listeposts'){
-            listPosts();
+            $postController->listPosts();
         }
 
 
         elseif ($_GET['action'] == 'post')
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-                post();
+                $postController->post();
             }
             else
             {
@@ -105,7 +107,7 @@ try {
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0)
                 { 
-                    modifPost();
+                    $postController->modifPost();
                 }
         }
 
@@ -113,7 +115,7 @@ try {
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0 && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo']) && !empty($_POST['token']))
                 { 
-                    postModifPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'], $_POST['token']);
+                    $postController->postModifPost($_GET['id'], $_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'], $_POST['token']);
                 }
         }
 
@@ -121,13 +123,13 @@ try {
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0)
                 { 
-                    delete($_GET['id']);
+                    $postController->delete($_GET['id']);
                 }
         }
 
         elseif ($_GET['action'] == 'add')
         {
-            add();
+            $postController->add();
         }
 
         elseif ($_GET['action'] == 'adminUsers')
@@ -165,7 +167,7 @@ try {
         {
             if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['author']) && !empty($_POST['chapo'])&& !empty($_POST['token']))
                 { 
-                    addPost($_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'], $_POST['token'] );
+                    $postController->addPost($_POST['title'], $_POST['content'], $_POST['author'], $_POST['chapo'], $_POST['token'] );
                 }
         }
 
