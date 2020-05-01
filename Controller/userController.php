@@ -5,7 +5,6 @@ require_once ('Model/userManager.php');
 
 class UserController
 {
-
     private $userManager;
 
     public function __construct()
