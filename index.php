@@ -7,6 +7,8 @@ require ('controller/postController.php');
 require ('controller/userController.php');
 
 $postController = new PostController;
+$UserController = new UserController;
+
 
 try {
     if (isset($_GET['action']))
@@ -41,25 +43,25 @@ try {
         }
 
         elseif ($_GET['action'] == 'connect'){
-            login();
+            $UserController->login();
         }
 
         elseif ($_GET['action'] == 'connectUser'){
 
             if(!empty($_POST['pseud']) && !empty($_POST['pass']) && !empty($_POST['token']) )
             {
-                connectUse($_POST['pseud'], $_POST['pass'], $_POST['token']);
+                $UserController->connectUse($_POST['pseud'], $_POST['pass'], $_POST['token']);
             }
 
         }
 
 
         elseif ($_GET['action'] == 'logout'){
-            logout();
+            $UserController->logout();
         }
 
         elseif ($_GET['action'] == 'registration'){
-            registration();
+            $UserController->registration();
 
             if (!empty($_GET['id'])) 
             {
@@ -78,7 +80,7 @@ try {
 
             if(!empty($_POST['email']) && !empty($_POST['pseud']) && !empty($_POST['prenom']) && !empty($_POST['pass2']) && !empty($_POST['pass']))
             {
-            inscription_post();
+                $UserController->inscription_post();
             }
         }
 
@@ -134,7 +136,7 @@ try {
 
         elseif ($_GET['action'] == 'adminUsers')
         {
-            admin_Users();
+            $UserController->admin_Users();
         }
         
         elseif ($_GET['action'] == 'adminComments')
@@ -152,14 +154,14 @@ try {
         elseif ($_GET['action'] == 'validateAdmin')
         {            
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-            validate_Admin($_GET['id']);
+                $UserController->validate_Admin($_GET['id']);
             }
         }
 
         elseif ($_GET['action'] == 'validateUser')
         {            
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-            validate_User($_GET['id']);
+                $UserController->validate_User($_GET['id']);
             }
         }
 
