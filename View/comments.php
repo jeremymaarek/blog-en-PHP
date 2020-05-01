@@ -22,32 +22,31 @@ $_SESSION['token'] = $token;
         
             <?php
                 
-                while ($donnees = $comments->fetch())
-                {
-                    if (htmlspecialchars($donnees['is_activated']) == '1')
+                foreach($all_Comments as $comment){
+
+                    if (htmlspecialchars($comment->activated()) == '1')
                     {
                     
             ?>
 
                 <div>
-                    <strong> <?php echo htmlspecialchars($donnees['author']) ?> </strong> le <?php echo htmlspecialchars($donnees['fr_date_comment']) ?> 
+                    <strong> <?= htmlspecialchars($comment->author()) ?> </strong> le <?= htmlspecialchars($comment->commentDate()) ?> 
                     <?php
                         if (htmlspecialchars(!empty($_SESSION['admin']))){
                             if ($_SESSION['admin'] == '1') {
                     ?>
-                    (<a href="index.php?action=modifComments&amp;postId=<?= htmlspecialchars($donnees['id'])?>">Modifier</a>) <br><br>
+                    (<a href="index.php?action=modifComments&amp;postId=<?= htmlspecialchars($comment->id()) ?>">Modifier</a>) <br><br>
                     <?php
                             }
                         }
                     ?>
-                    <?php echo htmlspecialchars($donnees['comment']) ?><br><br><br>
+                    <?= htmlspecialchars($comment->comment()) ?><br><br><br>
                 </div>
 
 
             <?php
                     }
                 }
-                $comments->closeCursor();
             ?>
     
                 <h4>Postez votre commentaire </h4>

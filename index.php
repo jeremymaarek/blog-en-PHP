@@ -8,6 +8,7 @@ require ('controller/userController.php');
 
 $postController = new PostController;
 $UserController = new UserController;
+$CommentController = new CommentController;
 
 
 try {
@@ -34,7 +35,7 @@ try {
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0){
                 if (!empty($_POST['author']) && !empty($_POST['comment']) && !empty($_POST['token'])) {
-                    addcom($_GET['id'], $_POST['author'], $_POST['comment'], $_POST['toke']);
+                    $CommentController->addcom($_GET['id'], $_POST['author'], $_POST['comment'], $_POST['toke']);
                 }
                 else{
                     throw new Exception('Tous les champs ne sont pas remplis !');
@@ -93,7 +94,7 @@ try {
         {
             if (!empty($_GET['postId']) && $_GET['postId'] > 0)
                 { 
-                modifComments();
+                    $CommentController->modifComments();
                 }
         }
 
@@ -101,7 +102,7 @@ try {
         {
             if (!empty($_GET['postId']) && $_GET['postId'] > 0 && !empty($_GET['pseudo']) && !empty($_GET['content']) && !empty($_GET['token']))
                 { 
-                    postModifComments($_GET['postId'], $_POST['pseudo'], $_POST['content'], $_POST['token']);
+                    $CommentController->postModifComments($_GET['postId'], $_POST['pseudo'], $_POST['content'], $_POST['token']);
                 }
         }
 
@@ -141,13 +142,13 @@ try {
         
         elseif ($_GET['action'] == 'adminComments')
         {
-            admin_Comments();
+            $CommentController->admin_Comments();
         }
 
         elseif ($_GET['action'] == 'validateComment')
         {            
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-            validate_Comment($_GET['id']);
+                $CommentController->validate_Comment($_GET['id']);
             }
         }
 
@@ -186,10 +187,8 @@ try {
                 if ($_GET['id'] == 2){
                     echo 'Attention, les deux mots de passe sont différents. Merci de vérifier votre saisie.';
                 }
-            }
-            
+            }   
         }
-
     }
     else
     {

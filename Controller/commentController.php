@@ -1,69 +1,77 @@
 <?php
 
-require_once ('Model/comment.php');
+require_once ('Model/model.php');
+require_once ('Model/commentManager.php');
 
-function addcom($postId,$author, $comment, $token)
+class CommentController
 {
-    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
-        if ($_SESSION['token'] == $_POST['token']) {
 
-            $commentManager = new Blog\jeremy\Model\CommentManager();
+    private $commentManager;
 
-            $add_comment = $commentManager->addComment($postId,$author, $comment);
-
-            if ($add_comment === false){
-                throw new Exception('Impossible d\'ajouter le commentaire !');
-            }
-            else{
-            header("Location: index.php?action=post&id=$postId");
-            }
-        }
+    public function __construct()
+    {
+        $this->commentManager = new Blog\jeremy\Model\commentManager();
     }
-    else {
-        echo "Erreur de vérification";
-    }
-}
 
-function modifComments()
-{
 
-    require ("View/modif_comment_view.php");
-}
+    public function addcom($postId,$author, $comment, $token)
+    {
+        if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
+            if ($_SESSION['token'] == $_POST['token']) {
 
-function postModifComments($postId, $pseudo, $content, $token)
-{
-    if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
-        if ($_SESSION['token'] == $_POST['token']) {
-            $commentManager = new Blog\jeremy\Model\CommentManager();
+                $add_comment = $this->commentManager->addComment($postId,$author, $comment);
 
-            $mod_comment = $commentManager->modComment($_GET['postId'], $_POST['pseudo'], $_POST['content']);
-
-            if ($mod_comment === false){
-                throw new Exception('Impossible de modifier le commentaire !');
-            }
-            else{
-            header("Location: index.php?action=post&id=$postId");
+                if ($add_comment === false){
+                    throw new Exception('Impossible d\'ajouter le commentaire !');
+                }
+                else{
+                header("Location: index.php?action=post&id=$postId");
+                }
             }
         }
+        else {
+            echo "Erreur de vérification";
+        }
     }
-    else {
-        echo "Erreur de vérification";
+
+    public function modifComments()
+    {
+
+        require ("View/modif_comment_view.php");
     }
 
-}
+    public function postModifComments($postId, $pseudo, $content, $token)
+    {
+        if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
+            if ($_SESSION['token'] == $_POST['token']) {
 
-function admin_Comments()
-{
-    $manager = new Blog\jeremy\Model\CommentManager();
-    $all_Comments =$manager->allComments();
-    require ('View/admin_Comments.php');
-}
+                $mod_comment = $this->commentManager->modComment($_GET['postId'], $_POST['pseudo'], $_POST['content']);
 
-function validate_Comment($id)
-{
-    $id = $_GET['id'];
-    $manager = new Blog\jeremy\Model\CommentManager();
-    $validate_Comment =$manager->validComment($id);
-    $all_Comments =$manager->allComments();
-    require ('View/admin_Comments.php');
+                if ($mod_comment === false){
+                    throw new Exception('Impossible de modifier le commentaire !');
+                }
+                else{
+                header("Location: index.php?action=post&id=$postId");
+                }
+            }
+        }
+        else {
+            echo "Erreur de vérification";
+        }
+
+    }
+
+    public function admin_Comments()
+    {
+        $all_Comments =$this->commentManager->allComments();
+        require ('View/admin_Comments.php');
+    }
+
+    public function validate_Comment($id)
+    {
+        $id = $_GET['id'];
+        $validate_Comment =$this->commentManager->validComment($id);
+        $all_Comments =$this->commentManager->allComments();
+        require ('View/admin_Comments.php');
+    }
 }

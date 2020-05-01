@@ -2,7 +2,7 @@
 
 require_once ('Model/model.php');
 require_once ('Model/postManager.php');
-require_once ('Model/comment.php');
+
 
 class PostController
 {

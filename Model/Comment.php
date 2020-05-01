@@ -2,51 +2,91 @@
 
 namespace Blog\jeremy\Model;
 
-class CommentManager extends Manager
+class Comment
 {
-    public function addComment ($postId,$author, $comment)
+    private $_id;
+    private $_post_id;
+    private $_author;
+    private $_comment;
+    private $_comment_date;
+    private $_is_activated;
+
+
+    public function __construct($datas = [])
     {
-        $bdd = $this->dbConnect();
-        $add_comment = $bdd->prepare("INSERT INTO comments (post_id, author, comment, comment_date) VALUES(:post_id, :author, :comment, NOW())");
-        $add_comment->execute(array(
-        'post_id' => $postId,
-        'author' => $author,
-        'comment' => $comment
-        ));
-        return $add_comment;
+        if (!empty($datas))
+        {
+            $this->hydrate($datas);
+        }
     }
 
-    public function comments ($postId)
+     public function hydrate(array $datas)
     {
-        $bdd = $this->dbConnect();
-        $comments = $bdd->prepare("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date_comment FROM comments WHERE post_id = ? ORDER BY comment_date");
-        $comments->execute(array($postId));
-        return $comments;
+        if (isset($datas['id']))
+        {
+          $this->setId($datas['id']);
+        }
+      
+        if (isset($datas['post_id']))
+        {
+          $this->setPostId($datas['post_id']);
+        }
+        if (isset($datas['author']))
+        {
+          $this->setAuthor($datas['author']);
+        }
+
+        if (isset($datas['comment']))
+        {
+          $this->setComment($datas['comment']);
+        }
+        if (isset($datas['comment_date']))
+        {
+          $this->setCreated($datas['comment_date']);
+        }
+        if (isset($datas['is_activated']))
+        {
+          $this->setActivated($datas['is_activated']);
+        }
+    }
+  
+  
+    public function id() {return $this->_id;}
+    public function postId() {return $this->_post_id;}
+    public function author() {return $this->_author;}
+    public function comment() {return $this->_comment;}
+    public function commentDate() {return $this->_comment_date;}
+    public function activated() {return $this->_is_activated;}
+
+
+    public function setId($id)
+    {    
+      $this->_id = $id;
     }
 
-    public function modComment ($postId, $pseudo, $content)
-    {
-    $bdd = $this->dbConnect();
-    $req = $bdd->prepare("UPDATE comments SET author = :nvauthor, comment = :nv_comment WHERE id = $postId");
-
-    $req->execute(array(
-    'nvauthor' => $pseudo,
-    'nv_comment' => $content
-    ));
+    public function setPostId($pseudo)
+    {   
+      $this->_pseudo = $pseudo;
     }
 
-    public function allComments ()
-    {
-        $bdd = $this->dbConnect();
-        $all_Comments = $bdd->query("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y') AS fr_date_comment FROM comments WHERE is_activated IS NULL ORDER BY post_id");
-        return $all_Comments;
+    public function setAuthor($email)
+    {   
+      $this->_email = $email;
     }
 
-    public function validComment($id)
-    {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare("UPDATE comments SET is_activated = '1' WHERE id = ?");
-        $req->execute(array($id));
-
+    public function setComment($prenom)
+    {   
+      $this->_prenom = $prenom;
     }
+
+    public function setCreated($pass)
+    {    
+      $this->_pass = $pass;
+    }
+    
+    public function setActivated($activated)
+    {
+        $this->_is_activated = $activated;
+    }
+
 }
