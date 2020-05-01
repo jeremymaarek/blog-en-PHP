@@ -1,6 +1,5 @@
 <?php
     ob_start();
-    session_start();
     if ($_SESSION['admin'] == 1){
 ?>
 
@@ -9,7 +8,7 @@
         <H1>Administration des utilisateurs :</h1><br><br>
     </div>
     <div class="container">
-        <table class='row'>
+        <table class="table">
             <tr>
                 <div class="col-md-1">
                     <th>id</th>
@@ -32,33 +31,32 @@
             
             </tr>
             <?php
-                while ($donnees = $all_Users->fetch())
-                {
+                foreach($all_Users as $user){
             ?>
                 <tr >
                     <div class="col-md-1">
-                        <td><?php echo htmlspecialchars($donnees['id']) ?></td>
+                        <td><?= htmlspecialchars($user->id()) ?></td>
                     </div>
                     <div class="col-md-2">
-                        <td><?php echo htmlspecialchars($donnees['pseudo']) ?></td>
+                        <td><?= htmlspecialchars($user->pseudo())  ?></td>
                     </div>
                     <div class="col-md-3">
-                        <td><?php echo htmlspecialchars($donnees['email']) ?></td>  
+                        <td><?= htmlspecialchars($user->email())  ?></td>  
                     </div>
                     <div class="col-md-2">
-                        <td><?php echo htmlspecialchars($donnees['prenom']) ?></td>
+                        <td><?= htmlspecialchars($user->prenom())  ?></td>
                     </div>
                     <div class="col-md-1">
-                        <td><?php echo htmlspecialchars($donnees['admin']) ?></td>
+                        <td><?= htmlspecialchars($user->admin())  ?></td>
                     </div>
                     <div class="col-md-1">
-                        <td><?php echo htmlspecialchars($donnees['is_activated']) ?></td>
+                        <td><?= htmlspecialchars($user->activated())  ?></td>
                     </div>
                     <div class="col-md-1">
-                        <td><a href="index.php?action=validateAdmin&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>">Passer admin</a></td>
+                        <td><a href="index.php?action=validateAdmin&amp;id=<?= htmlspecialchars($user->id()) ?>">Passer admin</a></td>
                     </div>
                     <div class="col-md-1">
-                    <td><a href="index.php?action=validateUser&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>"> Valider user</a></td>
+                    <td><a href="index.php?action=validateUser&amp;id=<?= htmlspecialchars($user->id()) ?>"> Valider user</a></td>
                     </div>
                 </tr>
                 <?php
@@ -70,6 +68,5 @@
 
 <?php
     }
-    $all_Users->closeCursor();
     $content = ob_get_clean();
     require ('View/templat.php');

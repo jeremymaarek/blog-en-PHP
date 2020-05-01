@@ -1,5 +1,4 @@
 <?php
-    session_start();
     if ($_SESSION['admin'] == 1){
     ob_start();
     $token = bin2hex(random_bytes(32));;

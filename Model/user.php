@@ -2,98 +2,113 @@
 
 namespace Blog\jeremy\Model;
 
-class User extends Manager
+class User
 {
-    public function connectAccount($pseudo, $pass)
+    private $_id;
+    private $_pseudo;
+    private $_email;
+    private $_prenom;
+    private $_pass;
+    private $_date_inscription;
+    private $_admin;
+    private $_is_activated;
+
+
+    public function __construct($datas = [])
     {
-
-        $pseudo = $_POST['pseud'];
-
-        $pass = $_POST['pass'];
-
-        $bdd = $this->dbConnect();
-
-        $reponse = $bdd->prepare("SELECT * FROM users WHERE pseudo = ? AND pass = ? AND is_activated = '1'");
-        $reponse->execute(array($pseudo, $pass));
-
-
-
-        $count = $reponse->rowCount();
-
-        if ($count != 1)
+        if (!empty($datas))
         {
-            echo 'verifiez vos identifiants';
-        ?>
-            <a href="View/inscription.php">S'inscrire</a>
-        <?php
-
-        }
-        else 
-        {
-            
-            $donnees = $reponse->fetch();
-
-            session_start();
-
-            $_SESSION['pseudo'] = $donnees['pseudo'];
-            $_SESSION['prenom'] = $donnees['prenom'];
-            $_SESSION['email'] = $donnees['email'];
-            $_SESSION['admin'] = $donnees['admin'];
-
-
-            header("Location: /blog");
-
-
+            $this->hydrate($datas);
         }
     }
 
-    public function registration($email, $pseudo, $prenom, $pass2, $pass)
+     public function hydrate(array $datas)
     {
-        $passattente = $_POST['pass'];
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare('INSERT INTO users (pseudo, email, prenom, pass, date_inscription) VALUES (?, ?, ?, ?, NOW())');
-        $req->execute(array($_POST['pseud'], $_POST['email'], $_POST['prenom'], $passattente));            
+        if (isset($datas['id']))
+        {
+          $this->setId($datas['id']);
+        }
+      
+        if (isset($datas['pseudo']))
+        {
+          $this->setPseudo($datas['pseudo']);
+        }
+        if (isset($datas['email']))
+        {
+          $this->setEmail($datas['email']);
+        }
+
+        if (isset($datas['prenom']))
+        {
+          $this->setPrenom($datas['prenom']);
+        }
+        if (isset($datas['pass']))
+        {
+          $this->setPass($datas['pass']);
+        }
+        if (isset($datas['date_inscription']))
+        {
+          $this->setCreated($datas['date_inscription']);
+        }
+        if (isset($datas['admin']))
+        {
+          $this->setAdmin($datas['admin']);
+        }
+        if (isset($datas['is_activated']))
+        {
+          $this->setActivated($datas['is_activated']);
+        }
+    }
+  
+  
+    public function id() {return $this->_id;}
+    public function pseudo() {return $this->_pseudo;}
+    public function email() {return $this->_email;}
+    public function prenom() {return $this->_prenom;}
+    public function pass() {return $this->_pass;}
+    public function created() {return $this->_date_inscription;}
+    public function admin() {return $this->_admin;}
+    public function activated() {return $this->_is_activated;}
+
+
+    public function setId($id)
+    {    
+      $this->_id = $id;
     }
 
-        
-    public function controlUser($pseudo)
-    {
-        $pseudo = $_POST['pseud'];
-
-        $bdd = $this->dbConnect();
-
-        $req = $bdd->prepare("SELECT * FROM users WHERE pseudo = ?");
-        $req->execute(array($pseudo));
-
-
-        $count = $req->rowCount();
-
-        return $count;
-
+    public function setPseudo($pseudo)
+    {   
+      $this->_pseudo = $pseudo;
     }
 
-    public function allUsers()
-    {
-        $bdd = $this->dbConnect();
-
-        $all_Users = $bdd->query("SELECT * FROM users");
-
-        return $all_Users;
+    public function setEmail($email)
+    {   
+      $this->_email = $email;
     }
 
-    public function validAdmin($id)
-    {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare("UPDATE users SET admin = '1' WHERE id = ?");
-        $req->execute(array($id));
-
+    public function setPrenom($prenom)
+    {   
+      $this->_prenom = $prenom;
     }
 
-    public function validUser($id)
-    {
-        $bdd = $this->dbConnect();
-        $req = $bdd->prepare("UPDATE users SET is_activated = '1' WHERE id = ?");
-        $req->execute(array($id));
-
+    public function setPass($pass)
+    {    
+      $this->_pass = $pass;
     }
+
+    public function setCreated($created)
+    {
+      $this->_date_inscription = $created;
+    }
+
+    public function setAdmin($admin)
+    {
+        $this->_admin = $admin;
+    }
+
+    public function setActivated($activated)
+    {
+        $this->_is_activated = $activated;
+    }
+
 }

@@ -1,6 +1,10 @@
 <?php
 
-require ('controller/controller.php');
+session_start();
+
+require ('controller/commentController.php');
+require ('controller/postController.php');
+require ('controller/userController.php');
 
 try {
     if (isset($_GET['action']))
@@ -185,11 +189,10 @@ try {
     }
     else
     {
-        home();
+        require ('View/home.php');
 
     }
 }
 catch(Exception $e) { 
     echo 'Erreur : ' . $e->getMessage();
 }
-
