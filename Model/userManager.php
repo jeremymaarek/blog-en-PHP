@@ -114,5 +114,4 @@ class UserManager extends Manager
         $count = $req->rowCount();
         return $count;
     }
-
 }

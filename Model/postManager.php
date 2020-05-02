@@ -77,8 +77,5 @@ class PostManager extends Manager
         $datas['id'] = $id;
         $post->hydrate($datas);
         $delete->execute(array($post->id()));
-
     }
-
-
 }
