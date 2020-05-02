@@ -2,10 +2,7 @@
 ob_start();
 $token = bin2hex(random_bytes(32));;
 $_SESSION['token'] = $token;
-
 ?>
-
-
 <section>
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -36,8 +33,7 @@ $_SESSION['token'] = $token;
         <a href="/blog/index.php?action=registration" class="btn btn-lg btn-outline">M'inscrire</a></p>
     </div>
 </section>
-
 <?php
     $content = ob_get_clean();
-    require ('View/templat.php');
+    require ('templat.php');
     
