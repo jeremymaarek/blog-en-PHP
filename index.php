@@ -126,13 +126,13 @@ try {
         
         elseif ($_GET['action'] == 'adminComments')
         {
-            $CommentController->admin_Comments();
+            $CommentController->adminComments();
         }
 
         elseif ($_GET['action'] == 'validateComment')
         {            
             if (!empty($_GET['id']) && $_GET['id'] > 0){
-                $CommentController->validate_Comment($_GET['id']);
+                $CommentController->validateComment($_GET['id']);
             }
         }
 

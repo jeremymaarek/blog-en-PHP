@@ -50,10 +50,8 @@ class PostController
     {
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
-        
-                $post = new Blog\jeremy\Model\Post();
-                
-                $add_post = $this->postManager->addPost($title,$content,$author,$chapo);
+                        
+                $this->postManager->addPost($title,$content,$author,$chapo);
 
                 header("Location: index.php?action=listeposts");
             }
@@ -69,7 +67,6 @@ class PostController
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
 
-                $post = new Blog\jeremy\Model\Post();
                 $mod_post = $this->postManager->modPost($id, $title, $content, $author, $chapo);
 
                 if ($mod_post === false){
@@ -88,7 +85,6 @@ class PostController
 
     public function delete($id)
     {
-        $post = new Blog\jeremy\Model\Post();
         $deletePost = $this->postManager->deleteM($id);
         if ($deletePost === false){
             throw new Exception('Impossible de supprimer le post !');

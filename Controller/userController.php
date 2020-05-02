@@ -21,7 +21,6 @@ class UserController
     {
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
-                $user = new Blog\jeremy\Model\User();
                 $this->userManager->ConnectAccount($_POST['pseud'], $_POST['pass']);
                 header("Location: /blog-en-php");
             }
@@ -44,7 +43,6 @@ class UserController
         }
         else 
         {
-            $user = new Blog\jeremy\Model\User();
             $count = $this->userManager->controlUser($_POST['pseud']);
             if ($count == 0)
             {   

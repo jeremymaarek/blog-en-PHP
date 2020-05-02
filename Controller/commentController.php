@@ -34,13 +34,13 @@ class CommentController
         }
     }
 
-    public function admin_Comments()
+    public function adminComments()
     {
         $all_Comments =$this->commentManager->allComments();
         require ('View/admin_Comments.php');
     }
 
-    public function validate_Comment($id)
+    public function validateComment($id)
     {
         $id = $_GET['id'];
         $validate_Comment =$this->commentManager->validComment($id);
