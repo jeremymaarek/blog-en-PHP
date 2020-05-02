@@ -2,6 +2,7 @@
 
 require_once ('Model/model.php');
 require_once ('Model/postManager.php');
+require_once ('Model/commentManager.php');
 
 
 class PostController
@@ -28,7 +29,7 @@ class PostController
         $post = new Blog\jeremy\Model\Post;
 
         $req =$this->postManager->getPosts($_GET['id']);
-        $comments = $commentManager->comments($_GET['id']);
+        $com = $commentManager->comments($_GET['id']);
         require ('View/comments.php');
     }
 

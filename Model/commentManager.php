@@ -22,41 +22,44 @@ class CommentManager extends Manager
 
     public function comments ($postId)
     {
+        $comments = [];
         $bdd = $this->dbConnect();
-        $comments = $bdd->prepare("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y %Hh%imin%ss') AS fr_date_comment FROM comments WHERE post_id = ? ORDER BY comment_date");
-        $comments->execute(array($postId));
+        $com = $bdd->prepare("SELECT id, post_id, author, comment, is_activated, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin') AS fr_date_comment FROM comments WHERE post_id = ? ORDER BY comment_date");
+        $com->execute(array($postId));
+        while ($datas = $com->fetch())
+        {
+            $comment = new Comment();
+            $comment->hydrate($datas);
+            $comments[] = $comment;
+        }
         return $comments;
     }
 
-    public function addComment ($postId,$author, $comment)
+    public function addComment ($postId,$author, $comm)
     {
         $bdd = $this->dbConnect();
         $add_comment = $bdd->prepare("INSERT INTO comments (post_id, author, comment, comment_date) VALUES(:post_id, :author, :comment, NOW())");
+        $comment = new Comment();
+        $datas['post_id'] = $postId;
+        $datas['author'] = $author;
+        $datas['comment'] = $comm;
+        $comment->hydrate($datas);
         $add_comment->execute(array(
-        'post_id' => $postId,
-        'author' => $author,
-        'comment' => $comment
+        'post_id' => $comment->postId(),
+        'author' => $comment->author(),
+        'comment' => $comment->comment(),
         ));
         return $add_comment;
     }
     
 
-    public function modComment ($postId, $pseudo, $content)
-    {
-    $bdd = $this->dbConnect();
-    $req = $bdd->prepare("UPDATE comments SET author = :nvauthor, comment = :nv_comment WHERE id = $postId");
-
-    $req->execute(array(
-    'nvauthor' => $pseudo,
-    'nv_comment' => $content
-    ));
-    }
-
     public function validComment($id)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE comments SET is_activated = '1' WHERE id = ?");
-        $req->execute(array($id));
-
+        $comment = new Comment();
+        $datas['id'] = $id;
+        $comment->hydrate($datas);
+        $req->execute(array($comment->id()));
     }
 }

@@ -22,24 +22,15 @@ $_SESSION['token'] = $token;
         
             <?php
                 
-                foreach($all_Comments as $comment){
+                foreach($com as $comment){
 
-                    if (htmlspecialchars($comment->activated()) == '1')
-                    {
+                    if (htmlspecialchars($comment->activated()) == '1'){
                     
             ?>
 
                 <div>
-                    <strong> <?= htmlspecialchars($comment->author()) ?> </strong> le <?= htmlspecialchars($comment->commentDate()) ?> 
-                    <?php
-                        if (htmlspecialchars(!empty($_SESSION['admin']))){
-                            if ($_SESSION['admin'] == '1') {
-                    ?>
-                    (<a href="index.php?action=modifComments&amp;postId=<?= htmlspecialchars($comment->id()) ?>">Modifier</a>) <br><br>
-                    <?php
-                            }
-                        }
-                    ?>
+                    <strong> <?= htmlspecialchars($comment->author()) ?> </strong> le <?= htmlspecialchars($comment->commentDate()) ?> <br>
+                
                     <?= htmlspecialchars($comment->comment()) ?><br><br><br>
                 </div>
 
@@ -63,7 +54,7 @@ $_SESSION['token'] = $token;
                         <label for="comment">Message :</label>
                         <input type="text"id="comment" name="comment"><br>
 
-                        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
+                        <input type="hidden" name="token" id="token" value="<?= $token; ?>" />
 
                         <input type="submit" name="envoyer"><br><br>
                     </form>

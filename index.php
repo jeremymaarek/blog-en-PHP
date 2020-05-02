@@ -35,7 +35,7 @@ try {
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0){
                 if (!empty($_POST['author']) && !empty($_POST['comment']) && !empty($_POST['token'])) {
-                    $CommentController->addcom($_GET['id'], $_POST['author'], $_POST['comment'], $_POST['toke']);
+                    $CommentController->addcom($_GET['id'], $_POST['author'], $_POST['comment'], $_POST['token']);
                 }
                 else{
                     throw new Exception('Tous les champs ne sont pas remplis !');
@@ -88,22 +88,6 @@ try {
 
         elseif ($_GET['action'] == 'addUser'){
             
-        }
-
-        elseif ($_GET['action'] == 'modifComments')
-        {
-            if (!empty($_GET['postId']) && $_GET['postId'] > 0)
-                { 
-                    $CommentController->modifComments();
-                }
-        }
-
-        elseif ($_GET['action'] == 'postModifComments')
-        {
-            if (!empty($_GET['postId']) && $_GET['postId'] > 0 && !empty($_GET['pseudo']) && !empty($_GET['content']) && !empty($_GET['token']))
-                { 
-                    $CommentController->postModifComments($_GET['postId'], $_POST['pseudo'], $_POST['content'], $_POST['token']);
-                }
         }
 
         elseif ($_GET['action'] == 'modifPost')

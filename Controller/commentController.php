@@ -14,7 +14,7 @@ class CommentController
     }
 
 
-    public function addcom($postId,$author, $comment, $token)
+    public function addcom($postId, $author, $comment, $token)
     {
         if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
             if ($_SESSION['token'] == $_POST['token']) {
@@ -32,33 +32,6 @@ class CommentController
         else {
             echo "Erreur de vérification";
         }
-    }
-
-    public function modifComments()
-    {
-
-        require ("View/modif_comment_view.php");
-    }
-
-    public function postModifComments($postId, $pseudo, $content, $token)
-    {
-        if (isset($_SESSION['token']) && isset($_POST['token']) && !empty($_SESSION['token']) && !empty($_POST['token'])) {
-            if ($_SESSION['token'] == $_POST['token']) {
-
-                $mod_comment = $this->commentManager->modComment($_GET['postId'], $_POST['pseudo'], $_POST['content']);
-
-                if ($mod_comment === false){
-                    throw new Exception('Impossible de modifier le commentaire !');
-                }
-                else{
-                header("Location: index.php?action=post&id=$postId");
-                }
-            }
-        }
-        else {
-            echo "Erreur de vérification";
-        }
-
     }
 
     public function admin_Comments()

@@ -11,7 +11,6 @@ class Comment
     private $_comment_date;
     private $_is_activated;
 
-
     public function __construct($datas = [])
     {
         if (!empty($datas))
@@ -40,16 +39,15 @@ class Comment
         {
           $this->setComment($datas['comment']);
         }
-        if (isset($datas['comment_date']))
+        if (isset($datas['fr_date_comment']))
         {
-          $this->setCreated($datas['comment_date']);
+          $this->setCreated($datas['fr_date_comment']);
         }
         if (isset($datas['is_activated']))
         {
           $this->setActivated($datas['is_activated']);
         }
     }
-  
   
     public function id() {return $this->_id;}
     public function postId() {return $this->_post_id;}
@@ -64,24 +62,24 @@ class Comment
       $this->_id = $id;
     }
 
-    public function setPostId($pseudo)
+    public function setPostId($postId)
     {   
-      $this->_pseudo = $pseudo;
+      $this->_post_id = $postId;
     }
 
-    public function setAuthor($email)
+    public function setAuthor($author)
     {   
-      $this->_email = $email;
+      $this->_author = $author;
     }
 
-    public function setComment($prenom)
+    public function setComment($comment)
     {   
-      $this->_prenom = $prenom;
+      $this->_comment = $comment;
     }
 
-    public function setCreated($pass)
+    public function setCreated($commentDate)
     {    
-      $this->_pass = $pass;
+      $this->_comment_date = $commentDate;
     }
     
     public function setActivated($activated)

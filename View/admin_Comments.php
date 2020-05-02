@@ -9,7 +9,7 @@
     </div>
     </div>
     <div class="container">
-        <table class='row'>
+        <table class="table">
             <tr>
                 <div class="col-md-1">
                     <th>id</th>
@@ -32,30 +32,29 @@
             
             </tr>
             <?php
-                while ($donnees = $all_Comments->fetch())
-                {
+                foreach($all_Comments as $comment){
             ?>
                 <tr >
                     <div class="col-md-1">
-                        <td><?php echo htmlspecialchars($donnees['id']) ?></td>
+                        <td><?= htmlspecialchars($comment->id()) ?></td>
                     </div>
                     <div class="col-md-2">
-                        <td><?php echo htmlspecialchars($donnees['post_id']) ?></td>
+                        <td><?= htmlspecialchars($comment->postId()) ?></td>
                     </div>
                     <div class="col-md-3">
-                        <td><?php echo htmlspecialchars($donnees['author']) ?></td>  
+                        <td><?= htmlspecialchars($comment->author()) ?></td>  
                     </div>
                     <div class="col-md-2">
-                        <td><?php echo htmlspecialchars($donnees['comment']) ?></td>
+                        <td><?= htmlspecialchars($comment->comment()) ?></td>
                     </div>
                     <div class="col-md-1">
-                        <td><?php echo htmlspecialchars($donnees['fr_date_comment']) ?></td>
+                        <td><?= htmlspecialchars($comment->commentDate()) ?></td>
                     </div>
                     <div class="col-md-1">
-                        <td><?php echo htmlspecialchars($donnees['is_activated']) ?></td>
+                        <td><?= htmlspecialchars($comment->activated()) ?></td>
                     </div>
                     <div class="col-md-1">
-                    <td><a href="index.php?action=validateComment&amp;id=<?php echo htmlspecialchars($donnees['id']) ?>"> Valider</a></td>
+                    <td><a href="index.php?action=validateComment&amp;id=<?= htmlspecialchars($comment->id()) ?>"> Valider</a></td>
                     </div>
                 </tr>
                 <?php
@@ -67,7 +66,5 @@
 
 <?php
     }
-
-    $all_Comments->closeCursor();
     $content = ob_get_clean();
     require ('View/templat.php');
