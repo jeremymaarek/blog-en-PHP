@@ -176,7 +176,7 @@ try {
     }
     else
     {
-        require ('View/home.php');
+        require ('View/viewHome.php');
 
     }
 }
