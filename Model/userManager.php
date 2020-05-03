@@ -34,13 +34,10 @@ class UserManager extends Manager
             
             $datas = $reponse->fetch();
 
-            $user = new User();
-            $user->hydrate($datas);
-
-            $_SESSION['pseudo'] = $user->pseudo();
-            $_SESSION['prenom'] = $user->prenom();
-            $_SESSION['email'] = $user->email();
-            $_SESSION['admin'] = $user->admin();
+            $_SESSION['pseudo'] = $datas['pseudo'];
+            $_SESSION['prenom'] = $datas['prenom'];
+            $_SESSION['email'] = $datas['email'];
+            $_SESSION['admin'] = $datas['admin'];
 
 
             header("Location: /blog");
@@ -51,19 +48,9 @@ class UserManager extends Manager
 
     public function registration($email, $pseudo, $prenom, $pass)
     {
-        $datas['email'] = $_POST['email'];
-        $datas['pseudo'] = $_POST['pseud'];
-        $datas['prenom'] = $_POST['prenom'];
-        $datas['pass'] = $_POST['pass'];
-
-
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO users (pseudo, email, prenom, pass, date_inscription) VALUES (?, ?, ?, ?, NOW())');
-
-        $user = new User();
-        $user->hydrate($datas);
-
-        $req->execute(array($user->pseudo(), $user->email(), $user->prenom(), $user->pass()));            
+        $req->execute(array($_POST['pseud'], $_POST['email'], $_POST['prenom'], $_POST['pass']));            
     }
 
 
@@ -85,20 +72,14 @@ class UserManager extends Manager
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE users SET admin = '1' WHERE id = ?");
-        $user = new User();
-        $datas['id'] = $id;
-        $user->hydrate($datas);
-        $req->execute(array($user->id()));
+        $req->execute(array($id));
     }
 
     public function validUser($id)
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE users SET is_activated = '1' WHERE id = ?");
-        $user = new User();
-        $datas['id'] = $id;
-        $user->hydrate($datas);
-        $req->execute(array($user->id()));
+        $req->execute(array($id));
     }
 
             
@@ -107,10 +88,7 @@ class UserManager extends Manager
         $pseudo = $_POST['pseud'];
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("SELECT * FROM users WHERE pseudo = ?");
-        $user = new User();
-        $datas['pseudo'] = $pseudo;
-        $user->hydrate($datas);
-        $req->execute(array($user->pseudo()));
+        $req->execute(array($pseudo));
         $count = $req->rowCount();
         return $count;
     }

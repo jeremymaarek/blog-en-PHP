@@ -39,15 +39,10 @@ class CommentManager extends Manager
     {
         $bdd = $this->dbConnect();
         $add_comment = $bdd->prepare("INSERT INTO comments (post_id, author, comment, comment_date) VALUES(:post_id, :author, :comment, NOW())");
-        $comment = new Comment();
-        $datas['post_id'] = $postId;
-        $datas['author'] = $author;
-        $datas['comment'] = $comm;
-        $comment->hydrate($datas);
         $add_comment->execute(array(
-        'post_id' => $comment->postId(),
-        'author' => $comment->author(),
-        'comment' => $comment->comment(),
+        'post_id' => $postId,
+        'author' => $author,
+        'comment' => $comm,
         ));
         return $add_comment;
     }
@@ -57,9 +52,6 @@ class CommentManager extends Manager
     {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare("UPDATE comments SET is_activated = '1' WHERE id = ?");
-        $comment = new Comment();
-        $datas['id'] = $id;
-        $comment->hydrate($datas);
-        $req->execute(array($comment->id()));
+        $req->execute(array($id));
     }
 }

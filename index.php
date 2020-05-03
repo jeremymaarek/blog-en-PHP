@@ -85,11 +85,6 @@ try {
             }
         }
 
-
-        elseif ($_GET['action'] == 'addUser'){
-            
-        }
-
         elseif ($_GET['action'] == 'modifPost')
         {
             if (!empty($_GET['id']) && $_GET['id'] > 0)
@@ -172,6 +167,9 @@ try {
                     echo 'Attention, les deux mots de passe sont différents. Merci de vérifier votre saisie.';
                 }
             }   
+        }
+        elseif ($_GET['action'] == 'notfound'){
+            require ('View/notfound.php');
         }
     }
     else

@@ -17,7 +17,6 @@ class PostController
 
     public function listPosts()
     {
-        $post = new Blog\jeremy\Model\Post;
         $all_posts = $this->postManager->allPosts();
         require ('View/index_view.php');
 
@@ -27,10 +26,17 @@ class PostController
     {            
         $commentManager = new Blog\jeremy\Model\CommentManager();
         $post = new Blog\jeremy\Model\Post;
+        
+        $count =$this->postManager->controlPost($_GET['id']);
+        if ($count == 1){
+            $req =$this->postManager->getPosts($_GET['id']);
+            $com = $commentManager->comments($_GET['id']);
+            require ('View/comments.php');
+        }
+        else{
+            header("Location: index.php?action=notfound");
+        }
 
-        $req =$this->postManager->getPosts($_GET['id']);
-        $com = $commentManager->comments($_GET['id']);
-        require ('View/comments.php');
     }
 
     public function modifPost()

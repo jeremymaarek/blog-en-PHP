@@ -35,17 +35,11 @@ class PostManager extends Manager
     {
         $bdd = $this->dbConnect();
         $add_post = $bdd->prepare('INSERT INTO posts(title, content, chapo, author, creation_date) VALUES(:title, :content, :chapo, :author, NOW())');
-        $post = new Post();
-        $datas['title'] = $title;
-        $datas['content'] = $content;
-        $datas['author'] = $author;
-        $datas['chapo'] = $chapo;
-        $post->hydrate($datas);
         $add_post->execute(array(
-            'title' => $post->title(),
-            'content' => $post->content(),
-            'author' => $post->author(),
-            'chapo' => $post->chapo(),
+            'title' => $title,
+            'content' => $content,
+            'author' => $author,
+            'chapo' => $chapo
             ));
         return $add_post;
     }
@@ -54,18 +48,11 @@ class PostManager extends Manager
     {
     $bdd = $this->dbConnect();
     $req = $bdd->prepare("UPDATE posts SET title = :nvtitle, content = :nv_content, creation_date = NOW(), author = :nvauthor, chapo = :nvchapo WHERE id = $id");
-    $post = new Post();
-        $datas['title'] = $title;
-        $datas['content'] = $content;
-        $datas['author'] = $author;
-        $datas['chapo'] = $chapo;
-        $post->hydrate($datas);
-
     $req->execute(array(
-        'nvtitle' => $post->title(),
-        'nv_content' => $post->content(),
-        'nvauthor' => $post->author(),
-        'nvchapo' => $post->chapo(),
+        'nvtitle' => $title,
+        'nv_content' => $content,
+        'nvauthor' => $author,
+        'nvchapo' => $chapo,
         ));
     }
 
@@ -73,9 +60,18 @@ class PostManager extends Manager
     {
         $bdd = $this->dbConnect();
         $delete = $bdd->prepare("DELETE FROM posts WHERE id = ?");
-        $post = new Post();
-        $datas['id'] = $id;
-        $post->hydrate($datas);
-        $delete->execute(array($post->id()));
+        $delete->execute(array($id));
     }
+
+    public function controlPost($id)
+    {
+        $id = $_GET['id'];
+        $bdd = $this->dbConnect();
+        $cont = $bdd->prepare("SELECT * FROM posts WHERE id = ?");
+        $cont->execute(array($id));
+        $count = $cont->rowCount();
+        var_dump($count);
+        return $count;
+    }
+
 }
