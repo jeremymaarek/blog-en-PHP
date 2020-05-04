@@ -70,7 +70,6 @@ class PostManager extends Manager
         $cont = $bdd->prepare("SELECT * FROM posts WHERE id = ?");
         $cont->execute(array($id));
         $count = $cont->rowCount();
-        var_dump($count);
         return $count;
     }
 
