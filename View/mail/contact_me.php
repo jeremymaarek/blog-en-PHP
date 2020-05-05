@@ -1,15 +1,8 @@
-<?
+<?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+require 'vendor/autoload.php'; 
+require_once 'key.php';
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-
-$mail = new PHPMailer;
-
-// Check for empty fields
 if(empty($_POST['name'])  		||
    empty($_POST['email']) 		||
    empty($_POST['phone']) 		||
@@ -25,29 +18,20 @@ $email_address = strip_tags(htmlspecialchars($_POST['email']));
 $phone = strip_tags(htmlspecialchars($_POST['phone']));
 $message = strip_tags(htmlspecialchars($_POST['message']));
 
+$email = new \SendGrid\Mail\Mail(); 
+$email->setFrom("jeremy.maarek@gmail.com", "Jeremy");
+$email->setSubject("Nouveau mail du blog");
+$email->addTo("$email_address", "$name");
+$email->addContent("text/plain", "Vous avez reçu un nouveau message.\n\n"."Voici les détails de cette demande :\n\Nom: $name\n\nEmail: $email_address\n\Telephone: $phone\n\nMessage:\n$message");
+$email->addContent(
+    "text/html", "Vous avez reçu un nouveau message.\n\n"."Voici les détails de cette demande :\n\Nom: $name\n\nEmail: $email_address\n\Telephone: $phone\n\nMessage:\n$message"
+);
+$sendgrid = new \SendGrid("$key");
 try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-    $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp1.example.com';                    // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'user@example.com';                     // SMTP username
-    $mail->Password   = 'secret';                               // SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-    //Recipients
-    $mail->setFrom("$email_address", 'Mailer');
-    $mail->addAddress('jeremy.maarek@gmail.com', 'Jeremy'); // Ajouter le destinataire
-    $mail->addReplyTo("$email_address", 'Information');
-
-    // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = "Site php, nouveau message de :  $name";
-    $mail->Body    = "Vous avez reçu un nouveau message.\n\n"."Voici les détails de cette demande :\n\Nom: $name\n\nEmail: $email_address\n\Telephone: $phone\n\nMessage:\n$message";
-
-    $mail->send();
-    echo 'Message envoyé';
+    $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
+    echo 'Caught exception: '. $e->getMessage() ."\n";
+} 

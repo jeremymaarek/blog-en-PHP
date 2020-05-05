@@ -185,6 +185,10 @@ try {
         elseif ($_GET['action'] == 'notfound'){
             require ('View/notfound.php');
         }
+
+        else{
+            require ('View/404.php');
+        }
     }
 
     else{

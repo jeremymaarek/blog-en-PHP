@@ -4,12 +4,10 @@ namespace Blog\jeremy\Model;
 
 require_once ('Model/user.php');
 
-
 class UserManager extends Manager
 {
     public function connectAccount($pseudo, $pass)
     {
-
         $pseudo = $_POST['pseud'];
 
         $pass = $_POST['pass'];
