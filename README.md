@@ -1,7 +1,5 @@
 # Openclassrooms P5 - Créez votre premier blog en PHP
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef/mini.png)](https://insight.sensiolabs.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef)
-[![SymfonyInsight](https://insight.symfony.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef/mini.svg)](https://insight.symfony.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef)
 ![OenClassRooms](https://img.shields.io/badge/OpenClassRooms-DA_PHP/SF-blue.svg)
 ![Project](https://img.shields.io/badge/Project-5-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-7.2-blue.svg)
