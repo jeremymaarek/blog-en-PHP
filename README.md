@@ -2,6 +2,8 @@
 
 Openclassrooms P5 - Créez votre premier blog en PHP
 
+[![SensioLabsInsight]](https://insight.symfony.com/account/widget?project=3faed7c5-c814-4f94-8fa6-89eddda7d1ef)
+
 Introduction :
 
 Projet d’OpenClassrooms afin de réaliser un blog en PHP et MySQL.
