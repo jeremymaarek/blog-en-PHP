@@ -1,6 +1,6 @@
 # Openclassrooms P5 - Créez votre premier blog en PHP
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cee0aae2dc60411585ccc18279ff2374)](https://www.codacy.com/app/MaxiKata/Blog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MaxiKata/Blog&amp;utm_campaign=Badge_Grade)
+[![SensioLabsInsight]([![SymfonyInsight](https://insight.symfony.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef/mini.svg)](https://insight.symfony.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef)](https://insight.symfony.com/projects/3faed7c5-c814-4f94-8fa6-89eddda7d1ef/mini.svg)
 ![OenClassRooms](https://img.shields.io/badge/OpenClassRooms-DA_PHP/SF-blue.svg)
 ![Project](https://img.shields.io/badge/Project-5-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-7.2-blue.svg)
