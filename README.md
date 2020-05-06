@@ -1,14 +1,15 @@
-# blog-en-PHP
+# Openclassrooms P5 - Créez votre premier blog en PHP
 
-Openclassrooms P5 - Créez votre premier blog en PHP
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cee0aae2dc60411585ccc18279ff2374)](https://www.codacy.com/app/MaxiKata/Blog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MaxiKata/Blog&amp;utm_campaign=Badge_Grade)
+![OenClassRooms](https://img.shields.io/badge/OpenClassRooms-DA_PHP/SF-blue.svg)
+![Project](https://img.shields.io/badge/Project-5-blue.svg)
+![PHP](https://img.shields.io/badge/PHP-7.2-blue.svg)
 
-[![SensioLabsInsight]](https://insight.symfony.com/account/widget?project=3faed7c5-c814-4f94-8fa6-89eddda7d1ef)
-
-Introduction :
+# Introduction :
 
 Projet d’OpenClassrooms afin de réaliser un blog en PHP et MySQL.
 
-Installation : 
+# Installation : 
 
 Afin d’installer ce projet, vous devez créer une base de données avec le fichier projet5.sql présent à la racine du projet. 
 
@@ -16,7 +17,7 @@ Modifiez ensuite le fichier model/model.php pour la connexion à la base de donn
 
 Vous pouvez ensuite vous rendre sur votre navigateur pour exploiter ce site. 
 
-Mails : 
+# Mails : 
 
 Pour pouvoir utiliser le fomulaire de contact présent sur le site, vous devez effectuer les opérations suivantes : 
 
