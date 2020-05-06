@@ -21,10 +21,10 @@ Vous pouvez ensuite vous rendre sur votre navigateur pour exploiter ce site.
 
 Pour pouvoir utiliser le fomulaire de contact présent sur le site, vous devez effectuer les opérations suivantes : 
 
-•	Créer un compte sur sendgrid,
-•	Ajouter un sender sur votre espace client, 
-•	Créer une clé
-•	Remplacer la variable $cle sur le fichier view/mail/key.php 
-•	Ouvrir le fichier contact_me.php et remplacer le mail jeremy.maarek@gmail.com par l’email que vous avez indiqué sur sendgrid comme sender. 
+*	Créer un compte sur sendgrid,
+*	Ajouter un sender sur votre espace client, 
+*	Créer une clé
+*	Remplacer la variable $cle sur le fichier view/mail/key.php 
+*	Ouvrir le fichier contact_me.php et remplacer le mail jeremy.maarek@gmail.com par l’email que vous avez indiqué sur sendgrid comme sender. 
 
 La base de données contient des articles / commentaires afin de pouvoir effectuer une démo du blog. 
